@@ -1,4 +1,13 @@
 .title{
     padding: 20px;
-    
+}
+.main-bg{
+    height: 600px;
+    background-image: url(./assets/bg.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.col{
+    text-align: center;
 }

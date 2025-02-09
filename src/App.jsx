@@ -1,10 +1,9 @@
 import './App.css'
-import {Button, Container, Nav, Navbar} from 'react-bootstrap'
-
+import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Navbar bg="dark" data-bs-theme="dark" className='title'>
         <Container>
           <Navbar.Brand href="#home">HaloSHOP</Navbar.Brand>
@@ -15,6 +14,30 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
+
+    <div className="main-bg"></div>
+    <div>
+    <Container>
+      <Row>
+        <Col className='col'>
+          <img></img>
+          <h4>상품명1</h4>
+          <p>상품설명</p>
+        </Col>
+        <Col>
+          <img></img>
+          <h4>상품명2</h4>
+          <p>상품설명</p>
+        </Col>
+        <Col>
+          <img></img>
+          <h4>상품명3</h4>
+          <p>상품설명</p>
+        </Col>
+      </Row>
+    </Container>
+    </div>
+
     </div>
   )
 }
