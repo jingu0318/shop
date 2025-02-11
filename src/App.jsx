@@ -35,10 +35,13 @@ function App() {
 
 function Item(props) {
   return(
-    props.shoes.map(function(a,i){
+    props.shoes.map((a,i) => {
+
+      let url = "https://codingapple1.github.io/shop/shoes"+(i+1)+".jpg"
+    
       return(
         <Col className='col'>
-          <img src={"https://codingapple1.github.io/shop/shoes"+(i+1)+".jpg"} width="80%"></img>
+          <img src={url} width="80%"></img>
           <h4>{a.title}</h4>
           <p>{a.content}</p>
           <p>{a.price}</p>
