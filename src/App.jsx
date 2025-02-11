@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 import data from './data'
+import { Routes, Route, Link } from 'react-router-dom'
 
 function App() {
 
@@ -13,22 +14,30 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">HaloSHOP</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">clips</Nav.Link>
+            <Nav.Link href="#home"><Link to="/" className="link">홈</Link></Nav.Link>
+            <Nav.Link href="#features"><Link to="/detail" className="link">상세페이지</Link></Nav.Link>
             <Nav.Link href="#pricing">reshows</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
-    <div className="main-bg"></div>
-    <div>
-    <Container>
-      <Row>
-        <Item shoes={shoes}></Item>
-      </Row>
-    </Container>
-    </div>
+      <Routes>
 
+        <Route path="/" element={ 
+          <>
+            <div className="main-bg"></div>
+            <div>
+            <Container>
+              <Row>
+                <Item shoes={shoes}></Item>
+              </Row>
+            </Container>
+            </div>
+          </> } />
+
+        <Route path="/detail" element={ <div>상세페이지임</div> } />
+        
+      </Routes>
     </div>
   )
 }
