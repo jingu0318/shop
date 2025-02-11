@@ -39,7 +39,7 @@ function App() {
           <h4>{shoes[2].title}</h4>
           <p>{shoes[2].price}</p>
         </Col> */}
-        <Item shoes = {shoes}></Item>
+        <Item shoes={shoes}></Item>
       </Row>
     </Container>
     </div>
@@ -48,15 +48,19 @@ function App() {
   )
 }
 
-function Item (props) {
+function Item(props) {
   return(
+    props.shoes.map(function(a,i){
+      return(
         <Col className='col'>
           <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%"></img>
-          <h4>{props.shoes[0].title}</h4>
-          <p>{props.shoes[0].price}</p>
+          <h4>{a.title}</h4>
+          <p>{a.content}</p>
+          <p>{a.price}</p>
         </Col>
+      )
+    })
   )
-  
 }
 
 export default App
