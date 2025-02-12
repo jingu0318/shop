@@ -177,3 +177,37 @@ to속성을 활용해서 어디로갈지 정해줄 수 있다.
 text-decoration: none;
 ```
 속성을 적용하면 된다.  
+
+### 디테일 내용추가
+```jsx
+function Detail () {
+    return(
+        <div className="container">
+            <div className="row">
+                <div className="col-md-6">
+                <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+                </div>
+                <div className="col-md-6">
+                <h4 className="pt-5">상품명</h4>
+                <p>상품설명</p>
+                <p>120000원</p>
+                <button className="btn btn-danger">주문하기</button> 
+                </div>
+            </div>
+        </div> 
+    )
+}
+
+export default Detail;
+```
+위 내용을 Detail.jsx라는 별도의 파일로 만들어 컴포넌트화 시킨다. (페이지를 한 컴포넌트로 만드는 것)  
+컴포넌트를 가져와 사용하기 위해서 App.jsx에서 import 후 state를 통해 랜더링시 표현이 될 수 있게 한다. 그리고 라우터 요소에 state변수 삽입  
+```jsx
+import Detail from './Detail'
+
+ let [details] = useState(Detail);
+
+ <Route path="/detail" element={ details } />
+```
+
+---

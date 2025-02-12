@@ -2,11 +2,13 @@ import { useState } from 'react'
 import './App.css'
 import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 import data from './data'
+import Detail from './Detail'
 import { Routes, Route, Link } from 'react-router-dom'
 
 function App() {
 
   let [shoes] = useState(data);
+  let [details] = useState(Detail);
 
   return (
     <div className="App">
@@ -35,7 +37,7 @@ function App() {
             </div>
           </> } />
 
-        <Route path="/detail" element={ <div>상세페이지임</div> } />
+        <Route path="/detail" element={ details } />
         
       </Routes>
     </div>
