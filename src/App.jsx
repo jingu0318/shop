@@ -3,20 +3,21 @@ import './App.css'
 import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 import data from './datas/data'
 import Detail from './pages/Detail'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 
 function App() {
 
   let [shoes] = useState(data);
+  let navigate = useNavigate();
 
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark" className='title'>
         <Container>
-          <Navbar.Brand href="#home">HaloSHOP</Navbar.Brand>
+          <Navbar.Brand onClick={() => { navigate('/')}}>HaloSHOP</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home"><Link to="/" className="link">홈</Link></Nav.Link>
-            <Nav.Link href="#features"><Link to="/detail" className="link">상세페이지</Link></Nav.Link>
+            <Nav.Link onClick={() => { navigate('/')}}>홈</Nav.Link>
+            <Nav.Link  onClick={() => { navigate('/detail')}}>상세페이지</Nav.Link>
             <Nav.Link href="#pricing">reshows</Nav.Link>
           </Nav>
         </Container>
@@ -37,8 +38,32 @@ function App() {
           </> } />
 
         <Route path="/detail" element={ <Detail/> } />
+
+        <Route path='/about' element={<About/>}>
+          <Route path='member' element={<Member/>}/>
+          <Route path='location' element={<location/>}/>
+        </Route>
+
+        
+        <Route path="*" element={ <div>없는 페이지입니다.</div> } />
+
         
       </Routes>
+    </div>
+  )
+}
+function About(){
+  return(
+    <div>
+      <h4>회사정보임</h4>
+      <Outlet></Outlet>
+    </div>
+  )
+}
+function Member(){
+  return(
+    <div>
+      <h5>멤버정보임</h5>
     </div>
   )
 }

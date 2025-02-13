@@ -215,3 +215,59 @@ import Detail from './Detail'
 ### 폴더구조
 라우터를 배우기 앞서 리액트 상의 폴더구조에 대해 알아보자.  
 리액트는 90%는 .jsx 파일이다. 그래서 비슷한거 끼리 한 폴더에 묶는게 정리 끝이다.  
+
+### useNavigate()
+페이디 이동을 도와주는 훅이다. (훅은 유용한게 들어있는 함수)
+```jsx
+let navigate = useNavigate();
+
+onClick={() => { navigate('/')}}
+onClick={() => { navigate('/detail')}}
+
+onClick={() => { navigate(1)}}
+onClick={() => { navigate(-1)}}
+```
+특정 html에 위 요소를 추가해서 Link 테그 없이 원하는 경로로 갈 수 있게 된다.  
+1,-1을 통해 앞 또는 뒤로 한페이지 이동 할 수 있게 해준다.(앞으로가기 뒤로가기버튼)
+
+### 404페이지
+뭔가 이상한 페이지로 접속을 했을 때 아무것도 안뜨는게 아니라 없는 페이지라고 404를 뛰어주고 싶으면
+```jsx
+<Route path="*" element={ <div>없는 페이지입니다.</div> } />
+```
+*을 넣어 설정하지 않은 모든 페이지에 대해 저 element를 띄워주게 된다.
+
+### Nested Routes
+/about이란 페이지에서 회사정보를 보여주고 있을 때 /about/member 에서 인원 /about/location 에서 위치 정보 등 아래로 가지가 뻗어나가고 싶을 때 사용한다.  
+```jsx
+<Route path='/about' element={<About/>}>
+  <Route path='member' element={<Member/>}/>
+  <Route path='location' element={<location/>}/>
+</Route>
+```
+상위 라우터를 <></> 로 만들고 안에다가 이렇게 구현한다.    
+
+상위요소에 들어가 있기 때문에 하위요소를 보여주기 위해선 <Outlet></Outlet>을 통해서 보여줘야 한다.  
+```jsx
+function About(){
+  return(
+    <div>
+      <h4>회사정보임</h4>
+      <Outlet></Outlet>
+    </div>
+  )
+}
+function Member(){
+  return(
+    <div>
+      <h5>멤버정보임</h5>
+    </div>
+  )
+}
+```
+#### nested routes 언제쓰나
+1. 여러 유사한 페이지 필요할 때 사용
+2. 잘보면 동적인 UI처럼 사용이 가능
+#### nested routes 장점
+1. 이런식으로 UI 만들면 뒤로가기 버튼 이용가능
+2. 페이지 이동이 쉬움(UI 스위치 조작 쉬움)
