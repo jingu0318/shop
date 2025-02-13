@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
-import data from './data'
-import Detail from './Detail'
+import data from './datas/data'
+import Detail from './pages/Detail'
 import { Routes, Route, Link } from 'react-router-dom'
 
 function App() {
