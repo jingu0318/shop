@@ -201,13 +201,11 @@ function Detail () {
 export default Detail;
 ```
 위 내용을 Detail.jsx라는 별도의 파일로 만들어 컴포넌트화 시킨다. (페이지를 한 컴포넌트로 만드는 것)  
-컴포넌트를 가져와 사용하기 위해서 App.jsx에서 import 후 state를 통해 랜더링시 표현이 될 수 있게 한다. 그리고 라우터 요소에 state변수 삽입  
+컴포넌트를 가져와 사용하기 위해서 App.jsx에서 import 후 가져온 컴포넌트 사용  
 ```jsx
 import Detail from './Detail'
 
- let [details] = useState(Detail);
-
- <Route path="/detail" element={ details } />
+ <Route path="/detail" element={ <Detail/> } />
 ```
 
 ---

@@ -8,7 +8,6 @@ import { Routes, Route, Link } from 'react-router-dom'
 function App() {
 
   let [shoes] = useState(data);
-  let [details] = useState(Detail);
 
   return (
     <div className="App">
@@ -37,7 +36,7 @@ function App() {
             </div>
           </> } />
 
-        <Route path="/detail" element={ details } />
+        <Route path="/detail" element={ <Detail/> } />
         
       </Routes>
     </div>
