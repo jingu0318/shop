@@ -321,3 +321,83 @@ let shoe = props.shoes.find((a)=>{
 let shoe = props.shoes.find((a)=> a.id == id)
 ```
 중괄호와 return을 동시에 생략해서 더 짧게 표현도 가능하다.  
+
+---
+
+## 7. styled-components
+리액트나 리액트 네이티브 할때 사람들이 많이 사용하는 라이브러리 중 하나가 styled-components이다.  
+
+설치
+```bash
+npm install styled-components
+```
+위 라이브러리를 사용하면 css파일까지 가지 않고도 js 파일에서 스타일 설정이 가능하다.
+```jsx
+import styled from "styled-components";
+
+styled.button
+```
+import하고 styled.button만 해도 자동으로 버튼이 생성된다.   
+디자인을 넣고 싶으면 빽틱기호를 넣어서 스타일을 넣어줄 수 있고 변수에 넣어 사용하면 된다.  
+```jsx
+let Yellowbtn = styled.button`
+    background : yellow;
+    color : black;
+    padding : 10px;
+`
+```
+스타일이 입혀진 하나의 컴포넌트 생성문법이기 때문에 대문자로 작성해주고 컴포넌트가져오는 식으로 사용    
+```jsx
+<Yellowbtn>버튼</Yellowbtn>
+```
+
+### styled-components 장점
+1. css파일 안열어도 됨
+2. 여기에 사용된 스타일이 다른 jsx파일에 오염되지 않음
+3. 페이지로딩시간 단축 ( html의 <style></style> 테그 안으로 들어가기 때문에)
+
+나중엔 다합치기때문에 css파일이 모든 jsx파일에 영향을 준다.   
+이를 극복하기 위해 styled-componets말고 기존 css파일에서도 오염방지하는 방법이 있는데   
+컴포넌트.module.css 라고 작명하면 특정 컴포넌트 대상으로만 css가 적용이 된다.  
+
+### styled-components 재사용 : props 문법
+```jsx
+let Yellowbtn = styled.button`
+    background : ${props => props.bg};
+    color : black;
+    padding : 10px;
+`
+
+<Yellowbtn bg="blue">버튼</Yellowbtn>
+<Yellowbtn bg="orange">버튼</Yellowbtn>
+```
+props 문법으로 재사용이 가능하다.   
+
+```jsx
+let Yellowbtn = styled.button`
+    background : ${props => props.bg};
+    color : ${props => props.bg == 'blue' ? 'white' : 'black'};
+    padding : 10px;
+`
+
+<Yellowbtn bg="blue">버튼</Yellowbtn>
+```
+간단한 프로그래밍도 가능하다.  
+
+```jsx
+let Yellowbtn = styled.button`
+    background : ${props => props.bg};
+    color : ${props => props.bg == 'blue' ? 'white' : 'black'};
+    padding : 10px;
+`
+
+let Copybtn = style.button(Yellowbtn)
+```
+기존 스타일을 복사하는 것도 가능하다.  
+
+### styled-components단점
+1. jsx파일이 길어져 복잡하진다.
+2. 중복스타일은 컴포넌트간 import할텐데 css와 다를게 없다.
+3. 협업시 css담당의 숙련도 이슈 발생
+
+---
