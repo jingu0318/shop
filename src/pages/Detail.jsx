@@ -1,17 +1,6 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-let Yellowbtn = styled.button`
-    background : ${props => props.bg};
-    color : black;
-    padding : 10px;
-`
-
-let Box = styled.div`
-    background : grey;
-    padding : 20px;
-`
-
 function Detail (props) {
 
     let{id} = useParams();

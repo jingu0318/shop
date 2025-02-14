@@ -401,3 +401,31 @@ let Copybtn = style.button(Yellowbtn)
 3. 협업시 css담당의 숙련도 이슈 발생
 
 ---
+
+## 8.Lifecycle과 useEffect 1
+우리가 만들어 사용하는 컴포넌트는 Lifecycle이라는 개념이 있다.   
+
+컴포넌트는  
+1. 생성이 될 수도 있고 (전문용어로 mount)
+2. 재렌더링이 될 수도 있고 (전문용어로 update)
+3. 삭제가 될 수도 있습니다. (전문용어로 unmount)
+
+Lifecycle 중 저 세가지 순간에 실행할 함수를 정의할 수 있다.
+
+### useEffect
+앞서 말한 순간에 실행할 함수는 useEffect라는 훅을 통해 컨트롤한다.
+```jsx
+import {useState, useEffect} from 'react';
+
+function Detail(){
+
+  useEffect(()=>{
+    //여기적은 코드는 컴포넌트 로드 & 업데이트 마다 실행됨
+    console.log('안녕')
+  });
+  
+  return (생략)
+}
+```
+상단에서 useEffect import해오고   
+콜백함수 추가해서 안에 코드 적으면 이제 그 코드는 컴포넌트가 mount & update시 실행됩니다.
