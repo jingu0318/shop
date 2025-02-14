@@ -428,4 +428,31 @@ function Detail(){
 }
 ```
 상단에서 useEffect import해오고   
-콜백함수 추가해서 안에 코드 적으면 이제 그 코드는 컴포넌트가 mount & update시 실행됩니다.
+콜백함수 추가해서 안에 코드 적으면 이제 그 코드는 컴포넌트가 mount & update시 실행된다.
+
+### 명심해야할 점
+useEffect 밖에 적어도 똑같은데요?  
+실은 useEffect 바깥에 적어도 똑같이 컴포넌트 mount & update시 실행된다.   
+컴포넌트가 mount & update시 function 안에 있는 코드도 다시 읽고 지나가서 그렇다.   
+
+useEffect를 그럼 왜쓰나요?  
+useEffect 안에 적은 코드는 html 렌더링 이후에 동작합니다. 즉 계산이 오래걸리는 코드를 미룰 수 있게 된다.  
+```jsx
+function Detail(){
+
+  (반복문 10억번 돌리는 코드)
+  return (생략)
+}
+```
+```jsx
+function Detail(){
+
+  useEffect(()=>{
+    (반복문 10억번 돌리는 코드)
+  });
+  
+  return (생략)
+}
+```
+오래걸리는 코드를 훅 안에 넣음으로써 html 보여주고 나서 반복문 돌리게 됨  
+코드 실행시점을 조절할 수 있기 때문에 html 렌더링이 빠른 사이트를 원한다면 훅을 잘 사용해보면 좋다.
