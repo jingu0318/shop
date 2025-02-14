@@ -17,7 +17,7 @@ function App() {
           <Navbar.Brand onClick={() => { navigate('/')}}>HaloSHOP</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={() => { navigate('/')}}>홈</Nav.Link>
-            <Nav.Link  onClick={() => { navigate('/detail')}}>상세페이지</Nav.Link>
+            <Nav.Link  onClick={() => { navigate('/detail/0')}}>상세페이지</Nav.Link>
             <Nav.Link href="#pricing">reshows</Nav.Link>
           </Nav>
         </Container>
