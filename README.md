@@ -1,6 +1,6 @@
 # 쇼핑몰 사이트 만들기
 
-## 1. 새로운 리액트 프로젝트 생성
+## 1.새로운 리액트 프로젝트 생성
 리액트 프로젝트 생성은 이제 쉽게 할거라 믿는다.  
 
 ### React-Bootstrap 라이브러리 설치
@@ -210,7 +210,7 @@ import Detail from './Detail'
 
 ---
 
-## 5. 리액트 라우터2
+## 5.리액트 라우터2
 
 ### 폴더구조
 라우터를 배우기 앞서 리액트 상의 폴더구조에 대해 알아보자.  
@@ -271,3 +271,25 @@ function Member(){
 #### nested routes 장점
 1. 이런식으로 UI 만들면 뒤로가기 버튼 이용가능
 2. 페이지 이동이 쉬움(UI 스위치 조작 쉬움)
+
+---
+
+## 6.리액트 라우터3
+비슷한 페이지가 여러개 필요하면 어떻게 할까? 라우터 여러개를 무한대로 만들어야 할까? 정답은 아니다.   
+더 편한 방법이 있는데 그건 바로 url 파라미터를 이용하는 것이다.  
+
+### url 파라미터 문법
+```jsx
+<Route path="/detail:id" element={ <Detail shoes={shoes}/> } />
+```
+위와 같은 방식으로 <mark>:작명</mark>을 통해 url 파라미터를 사용할 수 있게 된다.   
+
+useParams() 훅을 이용해 유저가 입력한 url파라미터를 가져올 수 있는데 이를 통해 다양한 페이지를 한 컴포넌트 페이지에서 표현이 가능하다.   
+```jsx
+import { useParams } from "react-router-dom";
+
+let{id} = useParams();
+
+<p>{props.shoes[id].content}</p>
+```
+import로 선언 후 useParams() 함수로 변수값 저장하고 사용하면 url 파라미터 사용이 가능한 모습이다.   
