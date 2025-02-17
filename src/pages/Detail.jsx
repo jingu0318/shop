@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import {InputGroup, Form} from "react-bootstrap";
 
 function Detail (props) {
 
@@ -28,6 +29,10 @@ function Detail (props) {
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
                     </div>
                     <div className="col">
+                    <InputGroup size="lg">
+                        <InputGroup.Text id="inputGroup-sizing-lg">수량</InputGroup.Text>
+                        <Form.Control aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+                    </InputGroup>
                     <h4 className="pt-5">{shoe.title}</h4>
                     <p>{shoe.content}</p>
                     <p>{shoe.price}원</p>
