@@ -456,3 +456,35 @@ function Detail(){
 ```
 오래걸리는 코드를 훅 안에 넣음으로써 html 보여주고 나서 반복문 돌리게 됨  
 코드 실행시점을 조절할 수 있기 때문에 html 렌더링이 빠른 사이트를 원한다면 훅을 잘 사용해보면 좋다.
+
+---
+
+## 9.Lifecycle과 useEffect 2
+
+### useEffect 실행조건 주기
+```jsx
+useEffect(()=>{ 실행할코드 }, [변수, state])
+```
+[] 는 전문용어로 dependency라고 부른다. useEffect의 실행조건을 넣을 수 있는 곳이다. [] 안에는 아무런 변수나 state를 집어 넣을 수 있다.   
+useEffect는 mount, update 될때마다 실행 되게 되어 있는데 [] 조건 안에 변수나 state를 넣으면 그 값이 바뀔 때만 실행하게 설정 가능하다.  
+<mark>주의 할 점은 []안에 변수가 들어가 있더라도 마운트시 코드가 한번 실행되는 것은 똑같다. 그래서 []를 비워두면 마운트될 때만 실행되고 업데이트 시에는 변경이 안 되게도 설정 가능하다.</mark>    
+
+### clean up function
+```jsx
+useEffect(()=>{
+   return()=>{
+
+   }
+}, [])
+```
+useEffect 안에 return문을 저렇게 작성하면 useEffect 동작 전 실행되는 코드가 된다. 별명: clean up function(기존 코드를 치우는 작업을 많이해서)  
+코드 치우는 방법은 타이머 같은 경우 타이머함수를 변수 안에 넣어두고 clearTimeout(변수) 함수를 사용하면 제거가 된다.   
+clean up function 함수는 mount 시 실행되진 않으나 unmount 시 실행된다.   
+
+#### 응용   
+useEffect 안엔 서버로 데이터 요청코드를 많이 적는데 불러오는 도중 재렌더링이 일어나면 기존 데이터 요청코드를 제거해주세요~ 라는 코딩을 하면 된다.  
+
+
+
+
+

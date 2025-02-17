@@ -18,7 +18,7 @@ function Detail (props) {
         setTimeout(() => {
             setdiscount2(false)
         }, 1000);
-      });
+      }, []);
 
     return( 
             <div className="container">
