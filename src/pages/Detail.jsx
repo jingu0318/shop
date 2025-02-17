@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 function Detail (props) {
 
     let{id} = useParams();
-    let [discount, setdiscount] = useState(true);
+    let [discount1, setdiscount1] = useState(true);
+    let [discount2, setdiscount2] = useState(true);
     //let url = "https://codingapple1.github.io/shop/shoes"+(id+1)+".jpg"
     let shoe = props.shoes.find((a) => a.id == id)
 
@@ -12,13 +13,16 @@ function Detail (props) {
     useEffect(()=>{
         //여기적은 코드는 컴포넌트 로드 & 업데이트 마다 실행됨
         setTimeout(() => {
-            setdiscount(false)
+            setdiscount1(false)
         }, 2000);
+        setTimeout(() => {
+            setdiscount2(false)
+        }, 1000);
       });
 
     return( 
             <div className="container">
-                {discount == true ? <Discount/> : null }
+                {discount2 == true ? <Discounttwo/> : discount1 == true ? <Discountone/> : null }
                 <div className="row">
                     <div className="col-md-6">
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
@@ -34,10 +38,18 @@ function Detail (props) {
     )
 }
 
-function Discount() {
+function Discounttwo() {
     return(
         <div className="alert alert-warning">
             2초 안에 구매시 할인
+        </div>
+    )
+}
+
+function Discountone() {
+    return(
+        <div className="alert alert-warning">
+            1초 안에 구매시 할인
         </div>
     )
 }
