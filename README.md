@@ -528,6 +528,23 @@ axios.get('url')
 ```
 새로고침도 없이 데이터를 편하게 불러올 수 있어 리액트에선 보통 ajax를 이용해 서버와 통신한다.
 
+#### 버튼누르면 가져온 데이터 추가하기
+```jsx
+<button onClick={()=>{
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{ 
+                let copy = [...shoes]
+                copy.push(...result.data)
+                setshoes(copy)
+               })
+              .catch(()=>{
+                console.log('불러오기 실패')
+              })
+            }}>버튼</button>
+```
+나머지는 간단한 개념이지만 copy.push(...result.data) 배열에 배열을 넣을때 ...(spread operator)를 사용하지 않으면   
+가져온 배열값이 하나로 묵여서 copy값 안에 들어감으로 기존 배열 길이에서 + 1 만 되게 된다.  
+때문에 ...을 사용하며 배열을 펴주고 하나씩 넣어줘야 정상적인 배열 + 배열이 된다.
 
 
 
