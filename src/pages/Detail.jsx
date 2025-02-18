@@ -21,9 +21,6 @@ function Detail (props) {
             setdiscount2(false)
         }, 1000);
       }, []);
-    useEffect(() => {
-        isNaN(숫자값) ? alert('그러지마세요') : null
-    },[숫자값])
 
     return( 
             <div className="container">
@@ -33,7 +30,7 @@ function Detail (props) {
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
                     </div>
                     <div className="col">
-                    {/* {isNaN(숫자값) ? <Numwarning/> : null} */}
+                    {isNaN(숫자값) ? <Numwarning/> : null}
                     <InputGroup size="lg">
                         <InputGroup.Text id="inputGroup-sizing-lg">수량</InputGroup.Text>
                         <Form.Control aria-label="Large" aria-describedby="inputGroup-sizing-sm"  onChange={(e)=>숫자값변경(e.target.value)}/>
