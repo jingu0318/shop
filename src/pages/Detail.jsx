@@ -7,6 +7,7 @@ function Detail (props) {
     let{id} = useParams();
     let [discount1, setdiscount1] = useState(true);
     let [discount2, setdiscount2] = useState(true);
+    let [숫자값, 숫자값변경] = useState(0);
     //let url = "https://codingapple1.github.io/shop/shoes"+(id+1)+".jpg"
     let shoe = props.shoes.find((a) => a.id == id)
 
@@ -29,9 +30,10 @@ function Detail (props) {
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
                     </div>
                     <div className="col">
+                    {isNaN(숫자값) ? <Numwarning/> : null}
                     <InputGroup size="lg">
                         <InputGroup.Text id="inputGroup-sizing-lg">수량</InputGroup.Text>
-                        <Form.Control aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+                        <Form.Control aria-label="Large" aria-describedby="inputGroup-sizing-sm"  onChange={(e)=>숫자값변경(e.target.value)}/>
                     </InputGroup>
                     <h4 className="pt-5">{shoe.title}</h4>
                     <p>{shoe.content}</p>
@@ -55,6 +57,13 @@ function Discountone() {
     return(
         <div className="alert alert-warning">
             1초 안에 구매시 할인
+        </div>
+    )
+}
+function Numwarning() {
+    return(
+        <div className="alert alert-warning" style={{background : 'red'}}>
+            경고 : 숫자만 입력하세요
         </div>
     )
 }
