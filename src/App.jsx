@@ -4,6 +4,7 @@ import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 import data from './datas/data'
 import Detail from './pages/Detail'
 import { Routes, Route, useNavigate, Outlet} from 'react-router-dom'
+import axios from 'axios'
 
 function App() {
 
@@ -35,9 +36,24 @@ function App() {
               </Row>
             </Container>
             </div>
-          </> } />
+            <button onClick={()=>{
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{ 
+                console.log(result.data)
+               })
+              .catch(()=>{
+                console.log('불러오기 실패')
+              })
+            }}>버튼</button>
+          </>
+        } />
 
         <Route path="/detail/:id" element={ <Detail shoes={shoes}/> } />
+
+
+
+
+
 
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>멤버정보임</div>}/>
@@ -47,8 +63,7 @@ function App() {
           <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>}/>
           <Route path='two' element={<div>생일기념 쿠폰받기</div>}/>
         </Route>
-
-        
+      
         <Route path="*" element={ <div>없는 페이지입니다.</div> } />
 
         

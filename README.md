@@ -484,6 +484,49 @@ clean up function 함수는 mount 시 실행되진 않으나 unmount 시 실행�
 #### 응용   
 useEffect 안엔 서버로 데이터 요청코드를 많이 적는데 불러오는 도중 재렌더링이 일어나면 기존 데이터 요청코드를 제거해주세요~ 라는 코딩을 하면 된다.  
 
+---
+
+## 10.AJAX : 리액트에서 서버와 통신
+서버와 통신하여 데이터를 주고 받을때 정확한 규격에 맞춰서 요청을 해야 한다.  
+1. 어떤 방법(GET or POST)
+2. 어떤 데이터(URL)
+
+### GET/POST 요청하는 법
+가장 쉬운 GET요청은 브라우저 주소창이다. 거기에 url 아무거나 적으면 그곳으로 GET요청을 날려준다.  
+POST 요청은 <form> 태그를 활용하여 전송하면 POST요청을 날린다.  
+근데 위 방식으로 요청을 날리면 브라우저가 새로고침이 되는 단점이 있다.   
+
+### 자바스크립트에서 GET/POST요청
+ajax를 활용해서 jsx코드 위에서도 요청을 할 수 있다. ajax는 새로고침 없이도 GET/POST요청이 가능한 장접이 있다.   
+
+### ajax사용법
+1. XMLHttpRequest (옛날js문법)
+2. fetch() (요즘js문법)
+3. axios (외부라이브러리)
+
+### axios
+설치
+```bash
+npm install axios
+```
+import
+```jsx
+import axios from 'axios'
+```
+요청방법 및 요청결과보기
+```jsx
+axios.get('url')
+.then((result)=>{ console.log(result.data) })
+```
+요청실패했을때
+```jsx
+axios.get('url')
+.then(()=>{ })
+.catch(()=>{
+  console.log('불러오기 실패')
+})
+```
+새로고침도 없이 데이터를 편하게 불러올 수 있어 리액트에선 보통 ajax를 이용해 서버와 통신한다.
 
 
 
