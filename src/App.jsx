@@ -8,8 +8,9 @@ import axios from 'axios'
 
 function App() {
 
-  let [shoes, setshoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+  let [count, setCount] = useState(0);
 
   return (
     <div className="App">
@@ -37,11 +38,13 @@ function App() {
             </Container>
             </div>
             <button onClick={()=>{
-              axios.get('https://codingapple1.github.io/shop/data2.json')
+              setCount(count+1)
+              console.log(count)
+              axios.get('https://codingapple1.github.io/shop/data'+(count+2)+'.json')
               .then((result)=>{ 
                 let copy = [...shoes]
                 copy.push(...result.data)
-                setshoes(copy)
+                setShoes(copy)
                })
               .catch(()=>{
                 console.log('불러오기 실패')
