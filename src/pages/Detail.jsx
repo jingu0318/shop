@@ -58,10 +58,10 @@ function Detail (props) {
                     <Nav.Link eventKey="link-4" onClick={()=>{setTab(4)}}>anything</Nav.Link>
                 </Nav.Item>
             </Nav>
-            {/* {
+            {
                 tab == 0 ? null : <TabContent tab={tab}/>
-            } */}
-            <TabContent2 tab={tab}/>
+            }
+            {/* <TabContent2 tab={tab}/> */}
         </>
     )
 }
@@ -81,11 +81,11 @@ function TabContent2(props){
     }
 }
 
-function TabContent(props) {
+function TabContent({tab}) {
     return(
         <div>
         <Card>
-            <Card.Header>{props.tab}</Card.Header>
+            <Card.Header>{tab}</Card.Header>
             <Card.Body>
                 <Card.Title>Special title treatment</Card.Title>
                 <Card.Text>

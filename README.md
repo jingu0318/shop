@@ -588,6 +588,7 @@ fetch('/url')
 1. html, css 디자인해두기(bootstrap)
 2. 동적 상태를 저장할 state 구현
 3. state에 따라 UI가 어떻게 보일지 작성(스위치 만들기)
+
 ```jsx
 let [tab,setTab] = useState(0);
 
@@ -605,9 +606,9 @@ let [tab,setTab] = useState(0);
       <Nav.Link eventKey="link-4" onClick={()=>{setTab(4)}}>anything</Nav.Link>
     </Nav.Item>
   </Nav>
-            {
-                tab == 0 ? null : <Tab tab={tab}/>
-            }
+  {
+    tab == 0 ? null : <Tab tab={tab}/>
+  }
 
 function Tab(props) {
     return(
@@ -645,3 +646,29 @@ function TabContent2(props){
     }
 }
 ```
+### 팁1 : props 귀찮을 때
+자식컴포넌트에서 props를 매번 쓰기 귀찮을 때 {변수}를 통해 props를 생략 가능하다.  
+```jsx
+function TabContent2({tab}){
+    if(tab == 1){
+        return <div>{tab}</div>
+    }
+}
+```
+변수가 여러개 있어도 OK  
+```jsx
+function TabContent2({props1, props2}){
+    if(props1 == 1){
+        return <div>{props2}</div>
+    }
+}
+```
+
+### 팁2 : if문 없이 작성하는법
+return 안에 들어가는 html문을 [] 배열 안에 다 밀어넣고 옆에 [변수]를 붙여 인덱스0부터 꺼내쓰면 원하는 내용을 뽑아 사용할 수 있다.   
+```jsx
+function TabContent2({tab}){
+  return  [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
+}
+```
+
