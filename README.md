@@ -672,3 +672,77 @@ function TabContent2({tab}){
 }
 ```
 
+---
+
+## 13.컴포넌트 전환 애니메이션(transition)
+
+### 전환 애니메이션 만드는 법
+1. 애니메이션 동작 전 className 만들기
+2. 애니메이션 동작 후 className 만들기
+3. className에 transition 속성 추가
+4. 원할때 두번째에 만들어둔 className 부착
+
+1,2,3번 완성
+```css
+.start {
+  opacity : 0;
+}
+
+.end {
+  opacity : 1;
+  transition : opacity 0.5s;
+}
+```
+원할때 end 부착하기(버튼을 눌렀을 때)
+```jsx
+function TabContent2({tab}){
+  return  (
+    <div className = 'start end'>  
+      { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab] }
+    </div>
+  )
+}
+```
+버튼을 눌렀을 때는 tab값이 바꼈을 때 이고 이를 이용해서 className 을 변화하는 방법은 useEffect를 쓰면 된다.(tab state가 변할때만 실행되는 함수 설정)  
+```jsx
+function TabContent2({tab}){
+    let [cn, setCn] = useState('');
+
+    useEffect(() => {
+        setCn('end')
+    }, [tab])
+    return  (
+      <div className = {'start ' + cn}>  
+        { [<div>내용1</div>, <div>내용2</div>, <div>내용3</div>, <div>내용4</div>][tab-1] }
+      </div>
+    )
+  }
+```
+이러면 완성! 된 것 같지만 작동하지 않는다.   
+이유: 개발자도구 elements를 보면 버튼을 눌러도 내용 className은 start end로 항상 나와서 문제였다.(end는 떨어져있다가 붙어야 작동한다.)  
+
+#### 해결방법
+clean up function 함수로 useEffect 실행전에 때는거 주문 후 setTimeout으로 시간차 붙이기 주문!
+```jsx
+useEffect(() => {
+  let a = setTimeout(()=>{ setCn('end') } , 100)
+  return() => {
+    clearTimeout(a)
+    setCn('')
+  }
+}, [tab])
+```
+setTimeout을 사용하는 이유 : raect18 부터 automatic batching 기능이 때문에 state 변경함수를 한번에 동작시켜서 그렇다!!  
+
+#### 다양한 애니메이션
+css를 잘 알면 여러가지 애니메이션을 줄 수 있다.  
+```css
+.start {
+    transform : scale(0);
+}
+  
+.end {
+    transform : scale(1);
+    transition : all 0.5s;
+}
+```

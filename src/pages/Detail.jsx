@@ -67,7 +67,20 @@ function Detail (props) {
 }
 
 function TabContent2({tab}){
-    return  [<div>내용1</div>, <div>내용2</div>, <div>내용3</div>, <div>내용4</div>][tab-1]
+    let [cn, setCn] = useState('');
+
+    useEffect(() => {
+        let a = setTimeout(()=>{ setCn('end') } , 100)
+        return() => {
+            clearTimeout(a)
+            setCn('')
+        }
+    }, [tab])
+    return  (
+      <div className = {'start ' + cn}>  
+        { [<div>내용1</div>, <div>내용2</div>, <div>내용3</div>, <div>내용4</div>][tab-1] }
+      </div>
+    )
   }
 
 function TabContent({tab}) {
