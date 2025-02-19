@@ -589,20 +589,22 @@ fetch('/url')
 2. 동적 상태를 저장할 state 구현
 3. state에 따라 UI가 어떻게 보일지 작성(스위치 만들기)
 ```jsx
-            <Nav fill variant="tabs" defaultActiveKey=''>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-1" onClick={()=>{setTab(1)}}>Active</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-2" onClick={()=>{setTab(2)}}>Loooonger NavLink</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-3" onClick={()=>{setTab(3)}}>Link</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-4" onClick={()=>{setTab(4)}}>anything</Nav.Link>
-                </Nav.Item>
-            </Nav>
+let [tab,setTab] = useState(0);
+
+  <Nav fill variant="tabs" defaultActiveKey=''>
+    <Nav.Item>
+      <Nav.Link eventKey="link-1" onClick={()=>{setTab(1)}}>Active</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link eventKey="link-2" onClick={()=>{setTab(2)}}>Loooonger NavLink</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link eventKey="link-3" onClick={()=>{setTab(3)}}>Link</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link eventKey="link-4" onClick={()=>{setTab(4)}}>anything</Nav.Link>
+    </Nav.Item>
+  </Nav>
             {
                 tab == 0 ? null : <Tab tab={tab}/>
             }
@@ -622,5 +624,24 @@ function Tab(props) {
         </Card>
         </div>
     )
+}
+```
+모달을 3항연산자 없이 if문으로 표현하고 싶을 때
+```jsx
+<TabContent2 tab={tab}/>
+
+function TabContent2(props){
+    if(props.tab == 1){
+        return <div>{props.tab}</div>
+    }
+    if(props.tab == 2){
+        return <div>{props.tab}</div>
+    }
+    if(props.tab == 3){
+        return <div>{props.tab}</div>
+    }
+    if(props.tab == 4){
+        return <div>{props.tab}</div>
+    }
 }
 ```
