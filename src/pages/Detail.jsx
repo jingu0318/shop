@@ -58,28 +58,17 @@ function Detail (props) {
                     <Nav.Link eventKey="link-4" onClick={()=>{setTab(4)}}>anything</Nav.Link>
                 </Nav.Item>
             </Nav>
-            {
+            {/* {
                 tab == 0 ? null : <TabContent tab={tab}/>
-            }
-            {/* <TabContent2 tab={tab}/> */}
+            } */}
+            <TabContent2 tab={tab}/>
         </>
     )
 }
 
-function TabContent2(props){
-    if(props.tab == 1){
-        return <div>{props.tab}</div>
-    }
-    if(props.tab == 2){
-        return <div>{props.tab}</div>
-    }
-    if(props.tab == 3){
-        return <div>{props.tab}</div>
-    }
-    if(props.tab == 4){
-        return <div>{props.tab}</div>
-    }
-}
+function TabContent2({tab}){
+    return  [<div>내용1</div>, <div>내용2</div>, <div>내용3</div>, <div>내용4</div>][tab-1]
+  }
 
 function TabContent({tab}) {
     return(
