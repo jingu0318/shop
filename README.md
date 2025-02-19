@@ -579,3 +579,48 @@ fetch('/url')
 앞서 말한 이유 때문에 fetch함수를 사용한 get 요청은 .json()함수를 통해 array/object 자료로 변환하는 과정이 필요하다.  
 
 ---
+
+## 12.탭 UI
+탭 UI를 만들기 위해서 button을 생성하면 되지만 우리에겐 react-bootstrap이 있으니 이쁜 디자인을 가져와 사용하자.  
+
+탭 UI도 동적인 UI 만들기 3스텝만 기억하면 잘 만들 수 있다.   
+
+1. html, css 디자인해두기(bootstrap)
+2. 동적 상태를 저장할 state 구현
+3. state에 따라 UI가 어떻게 보일지 작성(스위치 만들기)
+```jsx
+            <Nav fill variant="tabs" defaultActiveKey=''>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-1" onClick={()=>{setTab(1)}}>Active</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-2" onClick={()=>{setTab(2)}}>Loooonger NavLink</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-3" onClick={()=>{setTab(3)}}>Link</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-4" onClick={()=>{setTab(4)}}>anything</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            {
+                tab == 0 ? null : <Tab tab={tab}/>
+            }
+
+function Tab(props) {
+    return(
+        <div>
+        <Card>
+            <Card.Header>{props.tab}</Card.Header>
+            <Card.Body>
+                <Card.Title>Special title treatment</Card.Title>
+                <Card.Text>
+                With supporting text below as a natural lead-in to additional content.
+                </Card.Text>
+                <Button variant="primary">Go somewhere</Button>
+            </Card.Body>
+        </Card>
+        </div>
+    )
+}
+```

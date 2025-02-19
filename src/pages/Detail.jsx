@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {InputGroup, Form} from "react-bootstrap";
+import {Nav, InputGroup, Form, Card, Button} from "react-bootstrap";
 
 function Detail (props) {
 
@@ -10,6 +10,7 @@ function Detail (props) {
     let [숫자값, 숫자값변경] = useState(0);
     //let url = "https://codingapple1.github.io/shop/shoes"+(id+1)+".jpg"
     let shoe = props.shoes.find((a) => a.id == id)
+    let [tab,setTab] = useState(0);
 
 
     useEffect(()=>{
@@ -23,6 +24,7 @@ function Detail (props) {
       }, []);
 
     return( 
+        <>
             <div className="container">
                 {discount2 == true ? <Discounttwo/> : discount1 == true ? <Discountone/> : null }
                 <div className="row">
@@ -31,17 +33,52 @@ function Detail (props) {
                     </div>
                     <div className="col">
                     {isNaN(숫자값) ? <Numwarning/> : null}
-                    <InputGroup size="lg">
+                    <InputGroup size="lg"style={{marginTop : '20px'}}>
                         <InputGroup.Text id="inputGroup-sizing-lg">수량</InputGroup.Text>
                         <Form.Control aria-label="Large" aria-describedby="inputGroup-sizing-sm"  onChange={(e)=>숫자값변경(e.target.value)}/>
                     </InputGroup>
                     <h4 className="pt-5">{shoe.title}</h4>
                     <p>{shoe.content}</p>
                     <p>{shoe.price}원</p>
-                    <button className="btn btn-danger">주문하기</button> 
+                    <button className="btn btn-danger" style={{marginBottom : '20px'}} >주문하기</button> 
                     </div>
                 </div>
             </div>
+            <Nav fill variant="tabs" defaultActiveKey=''>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-1" onClick={()=>{setTab(1)}}>Active</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-2" onClick={()=>{setTab(2)}}>Loooonger NavLink</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-3" onClick={()=>{setTab(3)}}>Link</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-4" onClick={()=>{setTab(4)}}>anything</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            {
+                tab == 0 ? null : <Tab tab={tab}/>
+            }
+        </>
+    )
+}
+
+function Tab(props) {
+    return(
+        <div>
+        <Card>
+            <Card.Header>{props.tab}</Card.Header>
+            <Card.Body>
+                <Card.Title>Special title treatment</Card.Title>
+                <Card.Text>
+                With supporting text below as a natural lead-in to additional content.
+                </Card.Text>
+                <Button variant="primary">Go somewhere</Button>
+            </Card.Body>
+        </Card>
+        </div>
     )
 }
 
