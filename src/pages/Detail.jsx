@@ -13,7 +13,6 @@ function Detail (props) {
     let [tab,setTab] = useState(0);
     let [cn, setCn] = useState('');
 
-
     useEffect(()=>{
         //여기적은 코드는 컴포넌트 로드 & 업데이트 마다 실행됨
         setTimeout(() => {
@@ -66,10 +65,10 @@ function Detail (props) {
                     <Nav.Link eventKey="link-4" onClick={()=>{setTab(4)}}>anything</Nav.Link>
                 </Nav.Item>
             </Nav>
-            {/* {
+            {
                 tab == 0 ? null : <TabContent tab={tab}/>
-            } */}
-            <TabContent2 tab={tab}/>
+            }
+            {/* <TabContent2 tab={tab}/> */}
         </>
     )
 }
@@ -97,7 +96,7 @@ function TabContent({tab}) {
         <Card>
             <Card.Header>{tab}</Card.Header>
             <Card.Body>
-                <Card.Title>Special title treatment</Card.Title>
+                <Card.Title>타이틀입니다.</Card.Title>
                 <Card.Text>
                 With supporting text below as a natural lead-in to additional content.
                 </Card.Text>

@@ -746,3 +746,21 @@ css를 잘 알면 여러가지 애니메이션을 줄 수 있다.
     transition : all 0.5s;
 }
 ```
+
+---
+
+## 14.state관리1 : Context API
+하위 컴포넌트들이 많아 props를 여러번 사용해야 되는데 props를 사용하기 싫을 때 쓸 수 있는 방법이 여러가지 있다.
+
+1. Context API(리액트 기본문법)
+2. Redux 외부라이브러리
+3. zustand 외부라이브러리
+
+Context API는 성능이슈(재렌더링)와 컴포넌트 재활용이 어려워 잘 안쓰기 때문에 그냥 있다고만 알아두자.  
+
+### Context API사용법
+1. createContext import 후 let Context1 = createContext() 변수 선언
+2. <Context1.Provider>로 원하는 컴포넌트 감싸기
+3. value={{}} 속성을 열어 공유하고 싶은 state 짚어넣기 
+4. 감싼 컴포넌트로가서 Context1를 import 하기(1번에서 쓴 코드 앞에 export 붙이기)
+5. useContext(Context1) 함수를 변수에 넣어서 사용
