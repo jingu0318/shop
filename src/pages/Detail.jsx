@@ -11,6 +11,7 @@ function Detail (props) {
     //let url = "https://codingapple1.github.io/shop/shoes"+(id+1)+".jpg"
     let shoe = props.shoes.find((a) => a.id == id)
     let [tab,setTab] = useState(0);
+    let [cn, setCn] = useState('');
 
 
     useEffect(()=>{
@@ -22,10 +23,17 @@ function Detail (props) {
             setdiscount2(false)
         }, 1000);
       }, []);
+      useEffect(()=>{
+        let a = setTimeout(()=>{ setCn('end') } , 100)
+        return() => {
+            clearTimeout(a)
+            setCn('')
+        }
+      }, [shoe])
 
     return( 
         <>
-            <div className="container">
+            <div className={"container start " + cn}> {/*스타일 여러개달수 있음*/}
                 {discount2 == true ? <Discounttwo/> : discount1 == true ? <Discountone/> : null }
                 <div className="row">
                     <div className="col-md-6">

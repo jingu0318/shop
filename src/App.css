@@ -1,9 +1,9 @@
 .start {
-    transform : scale(0);
+    opacity: 0;
 }
   
 .end {
-    transform : scale(1);
+    opacity: 1;
     transition : all 0.5s;
 }
 
