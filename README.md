@@ -790,8 +790,8 @@ export default configureStore({
 
 #### main.jsx 파일수정
 ```jsx
+import { Provider } from 'react-redux'
 import store from './store.jsx'
-import Provider from 'react-redux'
 
 <Provider store = {store}>
   <BrowserRouter>
@@ -799,4 +799,39 @@ import Provider from 'react-redux'
   </BrowserRouter>
 </Provider>
 ```
+라이브러리에서 가져와서 사용하는 컴포넌트는 {}로 감싸 줘야한다.(내부 컴포넌트들은 괜찮다.)  
 
+### Redux store안 state 보관 및 사용
+
+#### state보관하는 법
+1. createSlice( ) 로 state 만들기
+2. configureStore( ) 안에 등록하기  
+
+```jsx
+import { configureStore, createSlice } from '@reduxjs/toolkit'
+
+let user = createSlice({
+  name : 'user',
+  initialState : 'kim'
+})
+
+export default configureStore({
+  reducer: { 
+    user : user.reducer
+  }
+}) 
+```
+state하나를 slice라고 부른다.  state 이름과 값을 넣어주면 된다. slice하나를 변수에 넣고 변수를  등록해준다.
+
+#### state사용하는 법
+```jsx
+import { useSelector } from 'react-redux';
+
+let a = useSelector((state) => state )
+```
+state가 필요한 파일에 가서 import 후 useSelector 함수를 통해 store 안에 있는 모든 state를 가져올 수 있다.  
+
+```jsx
+let a = useSelector((state) => state.user )
+```
+이런식으로 원하는 state만 가져올 수 있다.
