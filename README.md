@@ -863,3 +863,41 @@ let dispatch = useDispatch()
 onClick={()=>{ dispatch(changeName()) }}
 ```
 useDispatch() 함수를 이용해 변경함수 사용(useDispatch는 store.jsx에다가 변경요청을 보내는 함수)
+
+### Redux : state변경하는 법(object/array편)
+state가 object/array이면 return 없이 직접 수정하면 된다.  
+```jsx
+let cart = createSlice({
+  name : 'cart',
+  initialState : 
+  [
+    {id : 0, name : 'White and Black', count : 2},
+    {id : 2, name : 'Grey Yordan', count : 1}
+  ] ,
+  reducers : {
+    plusNum(state){
+      state[0].count += 1
+    }
+  }
+})
+```
+#### state변경 함수에 파라미터 
+입력값을 받고 싶으면 파라미터를 추가하면 된다. 사용할 땐 변수.payload 로 사용해야된다.(payload는 화물,소포,택배 느낌)
+```jsx
+let cart = createSlice({
+  name : 'cart',
+  initialState : 
+  [
+    {id : 0, name : 'White and Black', count : 2},
+    {id : 2, name : 'Grey Yordan', count : 1}
+  ] ,
+  reducers : {
+    plusNum(state, action){
+      state[action.payload].count += 1
+    }
+  }
+})
+```
+
+#### store 코드분리하기
+코드가 길어지면 store 폴더를 만들고 .jsx 파일 만들어 export import를 통해 사용하면 된다.  
