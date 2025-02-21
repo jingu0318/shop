@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import './App.css'
-import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 import data from './datas/data'
 import Detail from './pages/Detail'
+import Cart from './pages/Cart'
+import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 import { Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 import axios from 'axios'
 
@@ -37,7 +38,7 @@ function App() {
               </Row>
             </Container>
             </div>
-            <button onClick={()=>{
+            <Button onClick={()=>{
               setCount(count+1)
               console.log(count)
               axios.get('https://codingapple1.github.io/shop/data'+(count+2)+'.json')
@@ -49,16 +50,12 @@ function App() {
               .catch(()=>{
                 console.log('불러오기 실패')
               })
-            }}>버튼</button>
+            }}>버튼</Button>
           </>
         } />
 
         <Route path="/detail/:id" element={ <Detail shoes={shoes}/> } />
-
-
-
-
-
+        <Route path="/cart" element={<Cart/>} />
 
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>멤버정보임</div>}/>
@@ -70,25 +67,7 @@ function App() {
         </Route>
       
         <Route path="*" element={ <div>없는 페이지입니다.</div> } />
-
-        
       </Routes>
-    </div>
-  )
-}
-function About(){
-  return(
-    <div>
-      <h4>회사정보임</h4>
-      <Outlet></Outlet>
-    </div>
-  )
-}
-function Event(){
-  return(
-    <div className='event'>
-      <h4>오늘의 이벤트</h4>
-      <Outlet></Outlet>
     </div>
   )
 }
@@ -108,6 +87,23 @@ function Item(props) {
         </Col>
       )
     })
+  )
+}
+
+function About(){
+  return(
+    <div>
+      <h4>회사정보임</h4>
+      <Outlet></Outlet>
+    </div>
+  )
+}
+function Event(){
+  return(
+    <div className='event'>
+      <h4>오늘의 이벤트</h4>
+      <Outlet></Outlet>
+    </div>
   )
 }
 
