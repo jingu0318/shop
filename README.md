@@ -801,9 +801,8 @@ import store from './store.jsx'
 ```
 라이브러리에서 가져와서 사용하는 컴포넌트는 {}로 감싸 줘야한다.(내부 컴포넌트들은 괜찮다.)  
 
-### Redux store안 state 보관 및 사용
+### Redux : state보관하는 법
 
-#### state보관하는 법
 1. createSlice( ) 로 state 만들기
 2. configureStore( ) 안에 등록하기  
 
@@ -823,7 +822,7 @@ export default configureStore({
 ```
 state하나를 slice라고 부른다.  state 이름과 값을 넣어주면 된다. slice하나를 변수에 넣고 변수를  등록해준다.
 
-#### state사용하는 법
+### Redux : state사용하는 법
 ```jsx
 import { useSelector } from 'react-redux';
 
@@ -835,3 +834,32 @@ state가 필요한 파일에 가서 import 후 useSelector 함수를 통해 stor
 let a = useSelector((state) => state.user )
 ```
 이런식으로 원하는 state만 가져올 수 있다.
+
+### Redux : state변경하는 법(변수편)
+1. state수정해주는 함수 만들기
+2. 만든 함수 export 하기
+3. 만든 함수 import 해서 사용(useDispatch()함수 사용)
+
+```jsx
+let user = createSlice({
+  name : 'user',
+  initialState : 'kim',
+  reducers : {
+    changeName(state){
+      return 'john ' + state
+    }
+  }
+})
+
+export let { changeName } = user.actions 
+```
+reducers 안에 함수 추가 후 다른곳에 사용할 수 있게 함수를 export  
+```jsx
+import { useDispatch } from 'react-redux'
+import { changeName } from './../store.jsx'
+
+let dispatch = useDispatch()
+
+onClick={()=>{ dispatch(changeName()) }}
+```
+useDispatch() 함수를 이용해 변경함수 사용(useDispatch는 store.jsx에다가 변경요청을 보내는 함수)
