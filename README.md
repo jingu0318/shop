@@ -770,8 +770,33 @@ Redux는 state를 관리해줄 수 있는 외부라이브러
 props없이 state를 공유할 수 있게 해주는데 Redux를 설치하면 jsx 파일 하나에 state를 보관합니다. 그리고 모든 컴포넌트가 직접 꺼내어 쓸 수 있다.  
 사이트가 커지면 쓸 수 밖에 없어서 Redux나 zustand 라이브러리 숙려도를 대부분 요구하게 된다.  
 
-### Redux 설치
+### Redux 설치 및 세팅
 ```bash
 npm install react-redux @reduxjs/toolkit
 ```
 참고로 redux toolkit이라는 라이브러리를 설치할 건데 redux의 개선버전이다.  
+
+#### store.jsx 파일생성
+```jsx
+import { configureStore } from '@reduxjs/toolkit'
+
+export default configureStore({
+  reducer: { 
+
+  }
+}) 
+```
+위 내용이 들어간 store.jsx파일 생성
+
+#### main.jsx 파일수정
+```jsx
+import store from './store.jsx'
+import Provider from 'react-redux'
+
+<Provider store = {store}>
+  <BrowserRouter>
+  <App />
+  </BrowserRouter>
+</Provider>
+```
+
