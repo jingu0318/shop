@@ -764,3 +764,14 @@ Context API는 성능이슈(재렌더링)와 컴포넌트 재활용이 어려워
 3. value={{}} 속성을 열어 공유하고 싶은 state 짚어넣기 
 4. 감싼 컴포넌트로가서 Context1를 import 하기(1번에서 쓴 코드 앞에 export 붙이기)
 5. useContext(Context1) 함수를 변수에 넣어서 사용
+
+## 15.state관리2 : Redux
+Redux는 state를 관리해줄 수 있는 외부라이브러  
+props없이 state를 공유할 수 있게 해주는데 Redux를 설치하면 jsx 파일 하나에 state를 보관합니다. 그리고 모든 컴포넌트가 직접 꺼내어 쓸 수 있다.  
+사이트가 커지면 쓸 수 밖에 없어서 Redux나 zustand 라이브러리 숙려도를 대부분 요구하게 된다.  
+
+### Redux 설치
+```bash
+npm install react-redux @reduxjs/toolkit
+```
+참고로 redux toolkit이라는 라이브러리를 설치할 건데 redux의 개선버전이다.  
