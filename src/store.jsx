@@ -5,8 +5,8 @@ let user = createSlice({
   initialState : 'kim'
 })
 
-let stock = createSlice({
-  name : 'stock',
+let cart = createSlice({
+  name : 'cart',
   initialState : 
   [
     {id : 0, name : 'White and Black', count : 2},
@@ -17,6 +17,6 @@ let stock = createSlice({
 export default configureStore({
   reducer: { 
     user : user.reducer,
-    stock : stock.reducer
+    cart : cart.reducer
   }
 }) 
