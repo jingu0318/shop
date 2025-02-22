@@ -5,6 +5,9 @@ import { plusNum } from './../store/cartSlice.jsx'
 function Cart() {
     let cart = useSelector((state) => state.cart )
     let user = useSelector((state) => state.user)
+    // let oneCart = cart.find((a)=>{
+    //     return a.id == 0
+    // })
     let dispatch = useDispatch()
 
     return(
