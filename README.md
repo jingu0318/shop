@@ -901,3 +901,8 @@ let cart = createSlice({
 
 #### store 코드분리하기
 코드가 길어지면 store 폴더를 만들고 .jsx 파일 만들어 export import를 통해 사용하면 된다.  
+
+---
+
+## 16.state관리3 : zustand
+redux 차선책으로 나온 새로운 라이브러리, zustand
