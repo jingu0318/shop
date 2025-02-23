@@ -906,3 +906,8 @@ let cart = createSlice({
 
 ## 16.state관리3 : zustand
 redux 차선책으로 나온 새로운 라이브러리, zustand
+
+### zustand 설치
+```bash
+npm i zustand
+```
