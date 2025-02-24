@@ -21,7 +21,7 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link onClick={() => { navigate('/')}}>홈</Nav.Link>
             <Nav.Link  onClick={() => { navigate('/detail/0')}}>상세페이지</Nav.Link>
-            <Nav.Link href="#pricing">reshows</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/cart')}}>장바구니</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
