@@ -9,16 +9,17 @@ function Cart() {
     let dispatch = useDispatch()
 
     //redux는 함수를 사용하기 위해 useDispatch() 함수를 불러와야되지만 zustand는 그럴 필요가 없다.
-    const {bear, increaseBear, removeAllBear} = useBear();
+    const {bear, increaseBear, removeAllBear, bears} = useBear();
 
     return(
         <div>
-            <h6>{user}의 장바구니</h6>
             <div>
                 <h2>Count : {bear}</h2>
+                <h3>bears : {bears}</h3>
                 <button onClick= {increaseBear}>increase</button>
                 <button onClick= {removeAllBear}>reset</button>
             </div>
+            <h6>{user}의 장바구니</h6>
             <Table>
                 <thead>
                     <tr>

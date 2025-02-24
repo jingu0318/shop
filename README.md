@@ -905,9 +905,73 @@ let cart = createSlice({
 ---
 
 ## 16.state관리3 : zustand
-redux 차선책으로 나온 새로운 라이브러리, zustand
+Zustand는 React 애플리케이션에서 상태 관리를 간단하고 직관적으로 할 수 있도록 도와주는 라이브러리이다.   
+Redux보다 가벼우면서도 Flux 패턴 없이 단순한 API로 동작한다. 또한 복잡한 Action,reducer 설정이 필요없다.  
+
+### 장점
+1. 간단한 API : 불필요한 렌더링을 줄이고 간결하고 빠르다.
+2. Hooks 기반 : zustand는 React Hooks와 함께 사용되어 React 애플리케이션 상태를 관리. 함수형 컴포넌트에서 상태를 쉽게 관리 가능
+3. 최적화 : Immer 없이도 직접 상태 변경 가능하다.
+4. 편리한 디버깅: DevTools같은 확장 프로그램을 사용 가능하다.
+
 
 ### zustand 설치
 ```bash
 npm i zustand
 ```
+
+### zustand : store state 선언
+```jsx
+export const useBear = create((set) => ({
+  bear: 0,
+  increaseBear: () => set((state) => ({ bear: state.bear + 1 })),
+  removeAllBear: () => set({ bear: 0 }),
+}));
+```
+### zustand : state 변경하는 법(변수편)
+```jsx
+import { useBear } from './../store.jsx'
+
+//redux는 함수를 사용하기 위해 useDispatch() 함수를 불러와야되지만 zustand는 그럴 필요가 없다.
+    const {bear, increaseBear, removeAllBear} = useBear();
+
+    <h2>Count : {bear}</h2>
+    <button onClick= {increaseBear}>increase</button>
+    <button onClick= {removeAllBear}>reset</button>
+```
+redux와 다르게 선언된 함수를 사용하는데 있어 편리하다.
+
+### zustand : state 변경하는 법(array/object편)
+기본적인 방법은 set 함수를 사용해서 상태를 업데이트하는 방식이다.
+
+1. 배열에 값 추가
+```jsx
+export const useBear = create((set) => ({
+  bears: [],  // 빈 배열로 시작
+  addBear: (bear) => set((state) => ({ 
+    bears: [...state.bears, bear]
+  })),  // 배열에 값 추가
+  removeBear: (bearToRemove) => set((state) => ({
+    bears: state.bears.filter((bear) => bear !== bearToRemove)  // 특정 값 제외
+  })),
+  changeBear: (oldBear, newBear) => set((state) => ({
+    bears: state.bears.map((bear) => (bear === oldBear ? newBear : bear)) //map 순환하며 특정값 변경
+  })),
+  changeBearByIndex: (index, newBear) => set((state) => {
+    const newBears = [...state.bears];
+    newBears[index] = newBear;  // 특정 인덱스의 값 변경
+    return { bears: newBears };
+  }),
+}));
+```
+
+#### 정리
+배열에 값 추가: set((state) => ({ bears: [...state.bears, newItem] }))
+배열에서 값 삭제: set((state) => ({ bears: state.bears.filter(item => item !== itemToRemove) }))
+배열에서 값 변경: set((state) => ({ bears: state.bears.map(item => item === oldItem ? newItem : item) }))
+배열의 특정 인덱스 변경: set((state) => { const newArr = [...state.bears]; newArr[index] = newItem; return { bears: newArr }; })
+
+##### 기억할점
+인덱스 변경이 유일하게 {} 중괄호를 사용하는데 반환값을 명시적으로 처리하고 싶을 때 사용하고 그 외 () 소괄호는 즉시반환 때문이다.  
+
+---
