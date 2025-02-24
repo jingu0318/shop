@@ -966,12 +966,12 @@ export const useBear = create((set) => ({
 ```
 
 #### 정리
-배열에 값 추가: set((state) => ({ bears: [...state.bears, newItem] }))
-배열에서 값 삭제: set((state) => ({ bears: state.bears.filter(item => item !== itemToRemove) }))
-배열에서 값 변경: set((state) => ({ bears: state.bears.map(item => item === oldItem ? newItem : item) }))
-배열의 특정 인덱스 변경: set((state) => { const newArr = [...state.bears]; newArr[index] = newItem; return { bears: newArr }; })
+배열에 값 추가: set((state) => ({ bears: [...state.bears, newItem] }))  
+배열에서 값 삭제: set((state) => ({ bears: state.bears.filter(item => item !== itemToRemove) }))  
+배열에서 값 변경: set((state) => ({ bears: state.bears.map(item => item === oldItem ? newItem : item) }))  
+배열의 특정 인덱스 변경: set((state) => { const newArr = [...state.bears]; newArr[index] = newItem; return { bears: newArr }; })  
 
-##### 기억할점
-인덱스 변경이 유일하게 {} 중괄호를 사용하는데 반환값을 명시적으로 처리하고 싶을 때 사용하고 그 외 () 소괄호는 즉시반환 때문이다.  
+#### 기억할점
+인덱스 변경이 유일하게 {} 중괄호를 사용하는데 반환값을 명시적으로 처리하고 싶을 때 사용하고 그 외 () 소괄호는 즉시반환 때문이다.(js문법)   
 
 ---
