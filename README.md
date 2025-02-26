@@ -804,8 +804,9 @@ import store from './store.jsx'
 ### Redux : state보관하는 법
 
 1. createSlice( ) 로 state 만들기
-2. configureStore( ) 안에 등록하기  
+2. configureStore( ) 안에 등록하기    
 
+store.jsx  
 ```jsx
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
@@ -974,4 +975,16 @@ export const useBear = create((set) => ({
 #### 기억할점
 인덱스 변경이 유일하게 {} 중괄호를 사용하는데 반환값을 명시적으로 처리하고 싶을 때 사용하고 그 외 () 소괄호는 즉시반환 때문이다.(js문법)     
 
+#### 오류 수정한 부분 Uncaught TypeError: x.map is not a function
+1. Zustand에서 상태를 직접 수정하면 안 됨! (cart[action].count++ ❌)  
+✅ 새로운 배열을 반환해야 함 → map()을 사용하여 변경된 객체를 새로 만들어서 반환.  
+✅ push() 대신 cart: [...state.cart, newItem]으로 새로운 배열을 반환해야 함.   
+
+2. onClick={addCount(i)}는 잘못된 방식! (onClick이 아니라 즉시 실행됨)  
+✅ onClick={() => addCount(i)} → 이렇게 콜백 함수를 전달해야 함.
+✅ 간단히 생각할려면 onClick 뒤에 () => 함수() 를 고정적으로 해줘야 한다.
+
+![alt text](image.png)
+
+[zustand docs](https://www.npmjs.com/package/zustand)
 ---
