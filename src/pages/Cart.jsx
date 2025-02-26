@@ -1,25 +1,16 @@
 import {Table} from 'react-bootstrap';
-import { useDispatch, useSelector } from "react-redux"
-import { addCount } from './../store/cartSlice.jsx'
-import { useBear } from './../store.jsx';
+import { useUser, useCart } from './../store copy.jsx';
+
 
 function Cart() {
-    let cart = useSelector((state) => state.cart )
-    let user = useSelector((state) => state.user)
-    let dispatch = useDispatch()
 
-    //redux는 함수를 사용하기 위해 useDispatch() 함수를 불러와야되지만 zustand는 그럴 필요가 없다.
-    const {bear, increaseBear, removeAllBear, bears} = useBear();
+    const {user, changeName} = useUser();
+    const {cart, addCount} = useCart();
 
     return(
         <div>
-            <div>
-                <h2>Count : {bear}</h2>
-                <h3>bears : {bears}</h3>
-                <button onClick= {increaseBear}>increase</button>
-                <button onClick= {removeAllBear}>reset</button>
-            </div>
             <h6>{user}의 장바구니</h6>
+            <button onClick={() => changeName()}>+</button>
             <Table>
                 <thead>
                     <tr>
@@ -30,7 +21,7 @@ function Cart() {
                     </tr>
                 </thead>
                 <tbody>
-                    {
+                    {   
                         cart.map((a,i)=>{
                             return(
                                 <tr key={i}>
@@ -38,9 +29,7 @@ function Cart() {
                                 <td>{cart[i].name}</td>
                                 <td>{cart[i].count}</td>
                                 <td>
-                                    <button onClick={()=>{
-                                        dispatch(addCount(cart[i].id)) //i 0,1 순서대로 증가하는 값은 car[i].id 로 바꿔 id대로 증가하게 마듬
-                                    }}>+</button>
+                                    <button onClick={() => addCount(i)}>+</button>
                                 </td>
                                 </tr>
                             )

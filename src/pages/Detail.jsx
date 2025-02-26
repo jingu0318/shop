@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {Nav, InputGroup, Form, Card, Button} from "react-bootstrap";
-import { addItem } from "./../store/cartSlice";
-import { useDispatch } from "react-redux"
+import { useCart } from './../store copy.jsx';
 
 function Detail (props) {
 
@@ -14,7 +13,7 @@ function Detail (props) {
     let shoe = props.shoes.find((a) => a.id == id)
     let [tab,setTab] = useState(0);
     let [cn, setCn] = useState('');
-    let dispatch = useDispatch();
+    const { addItem } = useCart();
 
     useEffect(()=>{
         //여기적은 코드는 컴포넌트 로드 & 업데이트 마다 실행됨
@@ -51,7 +50,7 @@ function Detail (props) {
                     <p>{shoe.content}</p>
                     <p>{shoe.price}원</p>
                     <button className="btn btn-danger" style={{marginBottom : '20px'}} onClick={()=>{
-                        dispatch(addItem( {id : shoe.id, name : shoe.title, count : 숫자값} ))
+                        addItem( {id : shoe.id, name : shoe.title, count : 숫자값} )
                     }} >주문하기</button> 
                     </div>
                 </div>
