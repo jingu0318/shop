@@ -986,7 +986,10 @@ export const useBear = create((set) => ({
 ✅ onClick={() => addCount(i)} → 이렇게 콜백 함수를 전달해야 함.
 ✅ 간단히 생각할려면 onClick 뒤에 () => 함수() 를 고정적으로 해줘야 한다.
 
-![alt text](image.png)
+![alt text](./public/image.png)
+
+#### some()함수 
+![alt text](./public/image1.png)
 
 [zustand docs](https://www.npmjs.com/package/zustand)
 ---
