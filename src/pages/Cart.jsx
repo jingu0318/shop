@@ -1,6 +1,6 @@
 import {Table} from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux"
-import { plusNum } from './../store/cartSlice.jsx'
+import { addCount } from './../store/cartSlice.jsx'
 import { useBear } from './../store.jsx';
 
 function Cart() {
@@ -39,7 +39,7 @@ function Cart() {
                                 <td>{cart[i].count}</td>
                                 <td>
                                     <button onClick={()=>{
-                                        dispatch(plusNum(i))
+                                        dispatch(addCount(cart[i].id)) //i 0,1 순서대로 증가하는 값은 car[i].id 로 바꿔 id대로 증가하게 마듬
                                     }}>+</button>
                                 </td>
                                 </tr>
