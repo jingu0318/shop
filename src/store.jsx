@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import cart from './store/cartSlice'; // cartSlice가 있다고 가정
+import cart from './store/cartSlice';
 
 // Zustand 상태 관리
 export const useBear = create((set) => ({
