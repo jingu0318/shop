@@ -14,12 +14,16 @@ export const useCart = create((set) => ({
 
   // 🔥 기존 배열을 새로운 배열로 업데이트해야 React가 상태 변경을 감지함!
   addCount: (index) => set((state) => ({
-    cart: state.cart.map((a, i) => 
+    cart: state.cart.map((a) => 
       a.id === index ? { ...a, count: a.count + 1 } : a //변경된 부분만 업뎃 후 Object를 반환(객체 spread operator)
     )
   })),
 
   addItem: (newItem) => set((state) => ({
-    cart: [...state.cart, newItem]  // 🔥 push() 대신 새로운 배열을 반환해야 함! (배열 spread operator)
-  })),
+    cart: state.cart.some((item) => item.id === newItem.id) //some()함수를 통해 현재 cart 안에 newItem이랑 같은게 있는지 확인
+      ? state.cart.map((item) =>
+          item.id === newItem.id ? { ...item, count: item.count + parseInt(newItem.count) } : item
+        )
+      : [...state.cart, newItem]  // 항상 배열을 유지!
+  }))
 }));
