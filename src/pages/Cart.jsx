@@ -29,7 +29,7 @@ function Cart() {
                                 <td>{cart[i].name}</td>
                                 <td>{cart[i].count}</td>
                                 <td>
-                                    <button onClick={() => addCount(i)}>+</button>
+                                    <button onClick={() => addCount(cart[i].id)}>+</button>
                                 </td>
                                 </tr>
                             )

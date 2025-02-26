@@ -973,7 +973,9 @@ export const useBear = create((set) => ({
 배열의 특정 인덱스 변경: set((state) => { const newArr = [...state.bears]; newArr[index] = newItem; return { bears: newArr }; })  
 
 #### 기억할점
-인덱스 변경이 유일하게 {} 중괄호를 사용하는데 반환값을 명시적으로 처리하고 싶을 때 사용하고 그 외 () 소괄호는 즉시반환 때문이다.(js문법)     
+1. 인덱스 변경이 유일하게 {} 중괄호를 사용하는데 반환값을 명시적으로 처리하고 싶을 때 사용하고 그 외 () 소괄호는 즉시반환 때문이다.(js문법) 
+2. { ...item, count: item.count + 1 } 이 문법은 object Spread Operator(객체 전개 연산자) 를 활용해서 count 속성만 바꿔 주는 문법이다. 
+>  객체를 복사할 때 → { ...object } 사용, 배열을 복사할 때 → [ ...array ] 사용
 
 #### 오류 수정한 부분 Uncaught TypeError: x.map is not a function
 1. Zustand에서 상태를 직접 수정하면 안 됨! (cart[action].count++ ❌)  
