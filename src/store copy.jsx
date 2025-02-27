@@ -24,6 +24,10 @@ export const useCart = create((set) => ({
       ? state.cart.map((item) =>
           item.id === newItem.id ? { ...item, count: item.count + parseInt(newItem.count) } : item
         )
-      : [...state.cart, newItem]  // 항상 배열을 유지!
-  }))
+      : [...state.cart, {...newItem, count: parseInt(newItem.count)}]  // 항상 배열을 유지!
+  })),
+
+  removeItem:(index) => set((state) => ({
+    cart: state.cart.filter((a) => a.id !== index)
+  })),
 }));

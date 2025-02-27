@@ -5,7 +5,7 @@ import { useUser, useCart } from './../store copy.jsx';
 function Cart() {
 
     const {user, changeName} = useUser();
-    const {cart, addCount} = useCart();
+    const {cart, addCount, removeItem} = useCart();
 
     return(
         <div>
@@ -18,6 +18,7 @@ function Cart() {
                     <th>상품명</th>
                     <th>수량</th>
                     <th>변경하기</th>
+                    <th>삭제하기</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,11 +26,14 @@ function Cart() {
                         cart.map((a,i)=>{
                             return(
                                 <tr key={i}>
-                                <td>{cart[i].id}</td>
-                                <td>{cart[i].name}</td>
-                                <td>{cart[i].count}</td>
+                                <td>{a.id}</td>
+                                <td>{a.name}</td>
+                                <td>{a.count}</td>
                                 <td>
-                                    <button onClick={() => addCount(cart[i].id)}>+</button>
+                                    <button onClick={() => addCount(a.id)}>+</button>
+                                </td>
+                                <td>
+                                    <button onClick={() => removeItem(a.id)}>X</button>
                                 </td>
                                 </tr>
                             )
