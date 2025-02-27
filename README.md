@@ -1122,3 +1122,41 @@ function Component() {
   )
 } 
 ```
+
+---
+
+## 18.localStorage로 만드는 최근 본 상품 기능
+브라우저에 반영구적으로 저장되는 localstorage (브라우저에 휘발성으로 저장되는건 sessionstorage)   
+문자만 저장가능하다.  
+
+### localStorage 데이터저장
+```js
+localStorage.setItem('key','value')
+```
+
+### localStorage 데이터출력
+```js
+localStorage.getItem('key')
+```
+
+### localStorage 데이터삭제
+```js
+localStorage.removeItem('key')
+```
+
+데이터 수정 문법은 없음(꺼내서 직접 바꾸고 다시 넣기)
+세션으로 바꾸고 싶으면 localStorage를 sessionStorage로 변환
+
+### localStorage에 array/object 자료 저장하는 법
+문자자료만 저장할 수 있기 때문에 JSON 형태로 변형해서 저장한다.(JSON : 객체/배열을 문자식으로 바꿔 주고받을 수있게 만든 자료)
+```jsx
+let obj = {'key' : 'value'}
+localStorage.setItem('data',JSON.stringify(obj))
+```
+
+### localStorage에 array/object 자료 꺼내는 법
+get으로 가져온 데이터도 JSON 형태이기 때문에 기존 객체/배열 구조로 돌려놓아야 된다.   
+```jsx
+let Data = localStorage.getItem('data')
+JSON.parse(Data)
+```
