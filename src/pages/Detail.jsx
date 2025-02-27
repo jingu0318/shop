@@ -6,24 +6,24 @@ import { useCart } from './../store copy.jsx';
 function Detail (props) {
 
     let{id} = useParams();
-    let [discount1, setdiscount1] = useState(true);
-    let [discount2, setdiscount2] = useState(true);
     let [숫자값, 숫자값변경] = useState(0);
     //let url = "https://codingapple1.github.io/shop/shoes"+(id+1)+".jpg"
     let shoe = props.shoes.find((a) => a.id == id)
     let [tab,setTab] = useState(0);
     let [cn, setCn] = useState('');
     const { addItem } = useCart();
+    
 
     useEffect(()=>{
-        //여기적은 코드는 컴포넌트 로드 & 업데이트 마다 실행됨
-        setTimeout(() => {
-            setdiscount1(false)
-        }, 2000);
-        setTimeout(() => {
-            setdiscount2(false)
-        }, 1000);
-      }, []);
+        let 꺼낸거 = JSON.parse(localStorage.getItem('watched')) // 기본값 설정
+        if (!꺼낸거.includes(shoe.id)) { // 중복 방지
+            꺼낸거.push(shoe.id);
+            localStorage.setItem('watched', JSON.stringify(꺼낸거));
+        }
+
+      }, [shoe.id]);
+
+
       useEffect(()=>{
         let a = setTimeout(()=>{ setCn('end') } , 100)
         return() => {
@@ -35,7 +35,6 @@ function Detail (props) {
     return( 
         <>
             <div className={"container start " + cn}> {/*스타일 여러개달수 있음*/}
-                {discount2 == true ? <Discounttwo/> : discount1 == true ? <Discountone/> : null }
                 <div className="row">
                     <div className="col-md-6">
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
@@ -77,23 +76,6 @@ function Detail (props) {
     )
 }
 
-function TabContent2({tab}){
-    let [cn, setCn] = useState('');
-
-    useEffect(() => {
-        let a = setTimeout(()=>{ setCn('end') } , 100)
-        return() => {
-            clearTimeout(a)
-            setCn('')
-        }
-    }, [tab])
-    return  (
-      <div className = {'start ' + cn}>  
-        { [<div>내용1</div>, <div>내용2</div>, <div>내용3</div>, <div>내용4</div>][tab-1] }
-      </div>
-    )
-  }
-
 function TabContent(props) {
     return(
         <div>
@@ -111,21 +93,6 @@ function TabContent(props) {
     )
 }
 
-function Discounttwo() {
-    return(
-        <div className="alert alert-warning">
-            2초 안에 구매시 할인
-        </div>
-    )
-}
-
-function Discountone() {
-    return(
-        <div className="alert alert-warning">
-            1초 안에 구매시 할인
-        </div>
-    )
-}
 function Numwarning() {
     return(
         <div className="alert alert-warning" style={{background : 'red'}}>

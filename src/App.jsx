@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import data from './datas/data'
 import Detail from './pages/Detail'
@@ -8,6 +8,12 @@ import { Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 import axios from 'axios'
 
 function App() {
+
+  useEffect(() => {
+    if (!localStorage.getItem('watched')) { // 데이터가 없을 때 초기화(새로고침해도 유지)
+        localStorage.setItem('watched', JSON.stringify([]));
+    }
+  }, []);
 
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
@@ -73,6 +79,9 @@ function App() {
 }
 
 function Item(props) {
+
+  let navigate = useNavigate();
+
   return(
     props.shoes.map((a,i) => {
 
@@ -80,7 +89,7 @@ function Item(props) {
     
       return(
         <Col className='col'>
-          <img src={url} width="80%"></img>
+          <img src={url} width="80%" style={{ cursor: "pointer" }} onClick={() => navigate(`/detail/${i}`)} />
           <h4>{a.title}</h4>
           <p>{a.content}</p>
           <p>{a.price}</p>
