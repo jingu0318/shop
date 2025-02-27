@@ -992,4 +992,133 @@ export const useBear = create((set) => ({
 ![alt text](./public/image1.png)
 
 [zustand docs](https://www.npmjs.com/package/zustand)
+
 ---
+
+## 17.리액트에서 자주쓰는 if문 작성패턴 5개
+
+### 1.컴포넌트 안에서 쓰는 if/else
+```jsx
+function Component() {
+  if ( true ) {
+    return <p>참이면 보여줄 HTML</p>;
+  } else {
+    return null;
+  }
+}
+```
+컴포넌트에서 jsx를 조건부로 보여주고 싶으면 그냥 이렇게 사용  
+리턴문 div 안에 if문은 작성이 안되기 때문에 return + jsx문 전체를 뱉어내는 if문을 작성한다.  
+
+### 2.jsx 안에 쓰는 삼항연산자 
+ternary operator 라고한다.  
+조건문 ? 조건문 참일때 실행할 코드 : 거짓일 때 실행할 코드  
+```jsx
+function Component() {
+  return (
+    <div>
+      {
+        1 === 1
+        ? <p>참이면 보여줄 HTML</p>
+        : null
+      }
+    </div>
+  )
+}
+```
+jsx 안에 쓸 수 있다는 게 장점, 중첩 사용도 가능  
+
+### 3. && 연산자로 if 역할 대신하기
+자바스크립트에선 &&연산자라는게 있다.  
+"그냥 왼쪽 오른쪽 둘다 true면 전체를 true로 바꿔주세요~" 라고 쓰고싶을 때 쓴다.   
+논리만 있을 때  
+```jsx
+true && false; //false
+true && true;  //true
+```
+자료형도 있을 때  
+```jsx
+true && '안녕';   //안녕
+false && '안녕';  //false
+true && false && '안녕';  //false
+```
+&&연산자 : 자바스크립트는 그냥 &&로 연결된 값들 중에 처음 등장하는 falsy 값을 찾아주고 그게 아니면 마지막값을 남겨준다  
+```jsx
+function Component() {
+  return (
+    <div>
+      { 1 === 1 && <p>참이면 보여줄 HTML</p> }
+    </div>
+  )
+}
+```
+html 조건부로 보여줄 때 사용을 한다.  
+"만약에 이 변수가 참이면 <p></p>를 이 자리에 뱉고 참이 아니면 null 뱉고"  
+UI만들 때 이런거 매우 자주 쓴다고 함   
+
+
+### 4. switch / case 조건문
+if/else문 처럼 return div 안에 작성이 안되고 밖에 작성해야 한다.  
+if문을 연달아 여러개 써야되는 상황에 switch 문법을 쓰면 좀 줄일 수 있다.  
+```jsx
+function Component2(){
+  let user = 'seller';
+  switch (user){
+    case 'seller' :
+      return <h4>판매자 로그인</h4>
+    case 'customer' :
+      return <h4>구매자 로그인</h4>
+    default : 
+      return <h4>그냥 로그인</h4>
+  }
+}
+```
+장점은 if문 연달아쓸 때 코드가 약간 줄어들 수 있는데   
+조건식란에서 변수하나만 검사할 수 있다는게 단점   
+
+### 5. object/array 자료형 응용
+경우에 따라서 상품정보 / 배송정보 / 환불약관 내용을 보여주고 싶을 때  
+현재 state가 info면 <p>상품정보</p>   
+현재 state가 shipping이면 <p>배송정보</p>  
+현재 state가 refund면 <p>환불약관</p>  
+
+이렇게 보여줄려면 설계를 어떻게 해야 할까  
+자바스크립트 object 자료형에 내가 보여주고 싶은 HTML을 다 담는다.  
+```jsx
+function Component() {
+  let 현재상태 = 'info';
+  return (
+    <div>
+      {
+        { 
+           info : <p>상품정보</p>,
+           shipping : <p>배송관련</p>,
+           refund : <p>환불약관</p>
+        }[현재상태]
+      }
+
+    </div>
+  )
+} 
+```
+jsx상에서 html태그들을 object/array 안에 담고 [] 대괄호를 붙여 key 값이 현재상태인 html태그 뽑기  
+
+밑에는 object 객체를 변수에 저장하고 꺼내쓰는 방식
+```jsx
+let 탭UI = { 
+  info : <p>상품정보</p>,
+  shipping : <p>배송관련</p>,
+  refund : <p>환불약관</p>
+}
+
+function Component() {
+  let 현재상태 = 'info';
+  return (
+    <div>
+      {
+        탭UI[현재상태] //
+      }
+    </div>
+  )
+} 
+```
