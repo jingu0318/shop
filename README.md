@@ -1165,3 +1165,87 @@ JSON.parse(Data)
 깡 코딩부터 시작하는게 아니라 어떤 명령을 내릴지 한글로 작성해두고 작성해둔걸 js로 번역만 해주면 끝 (여기서 상세히 설명할수록 코딩 잘하게 된다.)  
 
 ---
+
+## 19.React-query : 실시간 데이터가 중요할 때
+ajax 요청을 하다보면 몇초마다 다시 데이터를 요청하거나 성공 실패시 다시 요청하는 기능들이 필요 할 때가 있다.  
+직접 개발해도 괜찬겠지만 react-query 라이브러리를 사용하면 간편하게 쓸 수 있다.  
+
+react-query는 SNS, 코인 거래소 등 실시간 데이터를 필요로하는데 유용하게 쓰이고 나머지는 크게 쓸데는 없다.  
+
+### react-query 설치 및 세팅
+```bash
+npm install @tanstack/react-query 
+```
+npm install react-query 는 react 16 17 18 까지 지원했고 19를 쓰고 싶다면 tanstack/react-query   
+
+
+gpt 추천은 Provider 보다 안에 감싸는걸 추천한다. 
+여기 안에 있는 StricMode 는  더 나은 코드 품질을 위해
+하지만 배포 시에는 자동으로 사라지므로, 따로 제거할 필요는 없음!(useEffect()두번 실행되는 이유도 이거)
+```jsx
+import { QueryClient } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode> 
+    <Provider store = {store}>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ QueryClientProvider>
+    </Provider>
+  </StrictMode>
+)
+```
+
+### react-query로 ajax 요청하는 법
+그냥 ajax를 요청해도 되지만 앞서 말한거처럼 편리한 기능을 제공해서 필요시 사용하면 좋다.(필요시만 좋을듯)  
+```jsx
+  let result = useQuery('작명', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{ return a.data })
+  )
+```
+기존 요청을 useQuery() 로 감싸고 return을 사용한다.   
+
+### react-query 기능
+
+#### 1. 요청 성공/실패/로딩중 상태를 쉽게 파악
+```jsx
+<div>
+  { result.isLoading && '로딩중' }
+  { result.error && '에러남' }
+  { result.data && result.data.name } 
+</div>
+```
+&&연산자 문법으로 왼쪽이 true 일때 오른쪽 내보내준다.요청성공시 result.data 안에 데이터가 들어옴   
+
+#### 2. 틈만나면 알아서 ajax 재요청
+페이지 체류하고나서 일정시간이 경과하거나 다른 창으로 갔다가 다시 페이지로 돌아오거나  
+다시 메인페이지로 돌아가거나 이런 여러 경우에 알아서 ajax 요청을 다시 해줍니다.  
+
+재요청 끄는 법, 재요청간격 조절하는 법도 있음  
+
+#### 3. 실패시 재시도 스스로
+잠깐 인터넷이 끊겼거나 서버가 죽었거나 그러면 ajax 요청이 실패하는데 그때 4번인가 5번인가 스스로 재시도를 함(편리하다)  
+
+#### 4. ajax로 가져온 결과는 state 공유 필요없음 
+유저이름 결과가 App 컴포넌트랑 Detail 컴포넌트 둘다 필요하다면?  
+props 전송 할 필요없이 App,Detail 둘다 유저이름 ajax 요청하는 코드 작성  
+react-query는 스마트하기 때문에 ajax 요청이 2개나 있으면 1개만 날려준다.  
+그리고 캐싱기능이 있기 때문에 이미 같은 ajax 요청을 한 적이 있으면 그걸 우선 가져와서 씀  
+
+### 그 외 추가적인 사항
+
+#### react-query가 주장하는 장점
+server-state (DB 데이터)를 프론트엔드에서 실시간 동기화해주는걸 도와준다고 함  
+근데 ajax 요청을 몇초마다 계속 날려서 가져오는 방식이라 http1을 쓰는 서버나 브라우저라면 좀 비효율적이다.    
+실시간으로 서버에서 데이터를 자주 보내려면 웹소켓이나 server-sent events 같은 가벼운 방식들이 있다.  
+그래서 react-query는 ajax 관련 기능개발 편하게 할 수 있는데에 의의가 더 있음    
+근데 http2나 3을 지원하는 브라우저나 서버를 이용한다면 GET POST 요청 자주해도 서버 부담이 적을 수 있어서 상관없을듯   
+
+#### RTK Query 라이브러리
+Redux Toolkit 설치한 경우 RTK Query 라는것도 기본적으로 사용가능한데 비슷한 기능들을 제공한다.(코드가 좀 더러울 뿐)  
+RTK Query는 실은 다른 용도로도 많이 쓰는데 ajax 요청후 Redux state 변경을 하고 싶다면 사용  

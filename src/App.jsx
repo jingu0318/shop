@@ -19,6 +19,11 @@ function App() {
   let navigate = useNavigate();
   let [count, setCount] = useState(0);
 
+  let result = useQuery('작명', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{ return a.data })
+  )
+
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark" className='title'>

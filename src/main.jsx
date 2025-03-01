@@ -5,14 +5,17 @@ import { Provider } from 'react-redux'
 import './main.css'
 import App from './App.jsx'
 import store from './store.jsx'
+import { QueryClient } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <Provider store = {store}>
-      <BrowserRouter>
-      <App />
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ QueryClientProvider>
     </Provider>
-  </StrictMode>,
 )
