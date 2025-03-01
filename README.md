@@ -1125,7 +1125,7 @@ function Component() {
 
 ---
 
-## 18.localStorage로 만드는 최근 본 상품 기능
+## 18.localStorage : 브라우저에 저장하는 Data
 브라우저에 반영구적으로 저장되는 localstorage (브라우저에 휘발성으로 저장되는건 sessionstorage)   
 문자만 저장가능하다.  
 
