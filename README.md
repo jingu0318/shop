@@ -1203,10 +1203,14 @@ createRoot(document.getElementById('root')).render(
 ### react-query로 ajax 요청하는 법
 그냥 ajax를 요청해도 되지만 앞서 말한거처럼 편리한 기능을 제공해서 필요시 사용하면 좋다.(필요시만 좋을듯)  
 ```jsx
-  let result = useQuery('작명', ()=>
-    axios.get('https://codingapple1.github.io/userdata.json')
-    .then((a)=>{ return a.data })
-  )
+import { useQuery } from '@tanstack/react-query'
+
+  let result = useQuery({
+    queryKey: ['작명'],
+    queryFn: () =>
+      axios.get('https://codingapple1.github.io/userdata.json')
+        .then((a) => a.data)
+  });
 ```
 기존 요청을 useQuery() 로 감싸고 return을 사용한다.   
 

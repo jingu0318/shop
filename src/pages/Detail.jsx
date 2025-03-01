@@ -21,7 +21,7 @@ function Detail (props) {
             localStorage.setItem('watched', JSON.stringify(꺼낸거));
         }
 
-      }, [shoe.id]);
+      }, []);
 
 
       useEffect(()=>{

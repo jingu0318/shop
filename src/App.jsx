@@ -6,6 +6,7 @@ import Cart from './pages/Cart'
 import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 import { Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
 
 function App() {
 
@@ -19,10 +20,12 @@ function App() {
   let navigate = useNavigate();
   let [count, setCount] = useState(0);
 
-  let result = useQuery('작명', ()=>
-    axios.get('https://codingapple1.github.io/userdata.json')
-    .then((a)=>{ return a.data })
-  )
+  let result = useQuery({
+    queryKey: ['작명'],
+    queryFn: () =>
+      axios.get('https://codingapple1.github.io/userdata.json')
+        .then((a) => a.data)
+  });
 
   return (
     <div className="App">
