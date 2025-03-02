@@ -1457,3 +1457,57 @@ function App(){
 
  ### 정리
  ![alt text](./public/image4.png)
+
+ ---
+
+ ## 23.JS에서 sync / async 
+sync는 동기식 async는 비동기식이다. 동기 비동기는 이제 설명 안 해줘도 알거라 믿는다.  
+JS는 기본적으로 sync하게 작동한다. 한 마디로 순차적으로 작동한다는 뜻이다.  
+
+### asynchronous 
+특정 함수는 비동기적으로 작동하는데 대표적으로 ajax, 이벤트리스너, setTimeout 이런 함수들을 쓸 때 그런 현상이 발생   
+처리가 오래걸리기 때문에 자바스크립트라는 언어의 특징이자 장점이라고 볼 수 있다.   
+
+### setState의 비동기
+state 변경함수들은 전부 asynchronous (비동기적) 으로 처리된다는 점이 있다. 그럼 한가지 문제가 발생 할 수 있는데   
+state 변경함수로 값을 바꾸고 if문을 통해 바뀐 값이 특정 순간에 도달 했을 때 무슨 행동을 한다고 가정을 하면 예상보다 한번 더 작동하는 상황이 생긴다.   
+```jsx
+<button onClick={()=>{
+
+  setCount(count+1);
+  if ( count < 3 ) {
+    setAge(age+1);
+  }
+         
+}}>누르면한살먹기</button>
+```
+이유는 cout가 + 1 이 되는 것보다 count < 3 계산을 먼저하고 setCount함수가 실행되기 때문이다.(비동기적)  
+이를 극복하는 방법은 useEffect() 를 사용하거나 미리 낮춰놓던가(?)하면 되지 않을까 싶다.  
+
+### async / await 사용법
+async/await는 Promise를 더 간단하고 직관적으로 사용할 수 있도록 만든 문법이다.  
+```jsx
+async function fetchData() {
+  console.log("데이터 요청 중...");
+  
+  let result = await new Promise((resolve) => {
+    setTimeout(() => resolve("데이터 가져오기 성공!"), 2000);
+  });
+
+  console.log(result);
+}
+
+fetchData();
+console.log("다른 작업 실행!");
+```
+결과:
+
+```scss
+데이터 요청 중...
+다른 작업 실행!
+(2초 후) 데이터 가져오기 성공!
+```
+await이 비동기 작업을 기다려준 후 실행되기 때문에 코드 가독성이 훨씬 좋아진다. ✅  
+
+---
+
