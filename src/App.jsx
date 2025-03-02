@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react'
+import { lazy, useEffect, useState } from 'react'
 import './App.css'
 import data from './datas/data'
-import Detail from './pages/Detail'
-import Cart from './pages/Cart'
 import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 import { Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
+
+const Detail = lazy( () => import('./pages/Detail') )
+const Cart = lazy( () => import('./pages/Cart') )
 
 function App() {
 

@@ -1253,3 +1253,56 @@ server-state (DB 데이터)를 프론트엔드에서 실시간 동기화해주�
 #### RTK Query 라이브러리
 Redux Toolkit 설치한 경우 RTK Query 라는것도 기본적으로 사용가능한데 비슷한 기능들을 제공한다.(코드가 좀 더러울 뿐)  
 RTK Query는 실은 다른 용도로도 많이 쓰는데 ajax 요청후 Redux state 변경을 하고 싶다면 사용  
+
+---
+
+## 20.성능개선1 : 개발자도구 & lazy import
+
+### 크롬 확장프로그램 : React Developer Tools 
+개발을 하다가 버그가 발생해 디버깅을 해야할 때 개발자도구를 켜서 elements 탭을 살펴보면 내 코드의 html css를 볼 수 있는데  
+리액트 컴포넌트 구조로 미리보고 싶다면 리액트 개발자도구를 설치할 수 있다.  
+
+![alt text](./public/image2.png)
+
+그 후 개발자 도구에서 components로 들어가면 왼쪽에서 컴포넌트 구조를 오른쪽에서 훅에 대한 정보를 볼 수 있다.   
+또한 Profiler에서 녹화 후 행동을 하면 렌더링된 모든 컴포넌트의 렌더링 시간을 측정해준다.   
+렌더링 시간으로 성능 검사를 해볼 수 있는데 대부분은 서버에서 ajax 요청결과가 늦게 도착해서 그렇거나 서버가 느린 것  
+
+### 크롬 확장프로그램 : Redux Developer Tools 
+이것도 크롬 웹스토어에서 설치가능하고 Redux store에 있던 state를 전부 확인가능  
+그리고 dispatch 날릴 때 마다 뭐가 어떻게 바뀌었는지 로그를 작성해준다.(store 복잡해지면 유용함)   
+
+### lazy import 
+개발이 완성 됐으면 npm run build 으로  html css js 파일로 변환 근데 리액트 SPA 특징은 JS파일 하나만 생성된다.(파일이 크다)  
+그래서 리액트 첫 페이지 로딩속도가 느려질 수 있다. 이를 예방하는 법은 <mark>lazy import</mark>를 통해 잘게 쪼개는 것  
+
+쪼개는 방법
+```jsx
+(App.jsx)
+
+import Detail from './routes/Detail.js'
+import Cart from './routes/Cart.js'
+```
+수정 전
+
+```jsx
+(App.jsx)
+import {lazy, Suspense, useEffect, useState} from 'react' // lzay,Suspense 
+
+const Detail = lazy( () => import('./pages/Detail') )
+const Cart = lazy( () => import('./pages/Cart') )
+```
+수정 후
+한 js파일로 합치는게 아니라 Detail 과 Cart 컴포넌트는 다른 js파일로 나뉜다.   
+결과적으로 파일이 3개로 나뉘어 첫 페이지 로딩속도를 향상 시킬 수 있다.   
+
+```jsx
+<Suspense fallback={ <div>로딩중임</div> }>
+  <Detail shoes={shoes} />
+</Suspense>
+```
+lazy 사용하면 Detail 컴포넌트 로드까지 지연시간이 발생할 수 있음.   
+그럴 땐 Suspense로 Detail 컴포넌트를 감싸면 Detail 컴포넌트가 로딩중일 때 대신 보여줄 html 작성도 가능.   
+<Suspense> 이걸로 <Routes> 전부 감싸도 됨.(페이지 컴포넌트마다 lazy 했으면)  
+
+---
