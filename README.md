@@ -1306,3 +1306,52 @@ lazy 사용하면 Detail 컴포넌트 로드까지 지연시간이 발생할 수
 <Suspense> 이걸로 <Routes> 전부 감싸도 됨.(페이지 컴포넌트마다 lazy 했으면)  
 
 ---
+
+## 21.성능개선2: 재렌더링 방지 memo & useMemo
+
+### memo 
+컴포넌트가 재렌더링되면 안 에 자식컴포넌트는 항상 함께 재렌더링이 된다 근데 자식 렌더링이 시간이 오래걸리는 큰 작업이라면 자식을 memo로 감싸놓으면 됨   
+
+
+```jsx
+import {memo, useState} from 'react'
+
+let Child = memo( function(){ // let 컴포넌트명 = memo( function(){}) 
+  console.log('재렌더링됨')
+  return <div>자식임</div>
+})
+
+function Cart(){ 
+
+  let [count, setCount] = useState(0)
+
+  return (
+    <Child />
+    <button onClick={()=>{ setCount(count+1) }}> + </button>
+  )
+}
+```
+import 해와 원하는 컴포넌트를 memo()로 감싸면 된다.  
+버튼을 눌러 재렌더링을 시켜도 자식은 변하지 않는다.   
+재렌더링 하는 법 : Child로 전송되는 props가 변하는 경우  
+
+### useMemo
+```jsx
+import {useMemo, useState} from 'react'
+
+function 함수(){
+  return 반복문10억번돌린결과
+}
+
+function Cart(){ 
+
+  let result = useMemo(()=>{ return 함수() }, [])
+
+  return (
+    <Child />
+    <button onClick={()=>{ setCount(count+1) }}> + </button>
+  )
+}
+```
+특정함수 실행이 오래 걸릴 때 그 함수를 useMemo 안에 넣어두면 컴포넌트 로드시 1회만 실행
+useEffect 처럼 dependency도 넣을 수 있어서 특정 state, props가 변할 때만  효율적으로 실행 가능하다.  
