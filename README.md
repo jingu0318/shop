@@ -1307,7 +1307,7 @@ lazy 사용하면 Detail 컴포넌트 로드까지 지연시간이 발생할 수
 
 ---
 
-## 21.성능개선2: 재렌더링 방지 memo & useMemo
+## 21.성능개선2 : 재렌더링 방지 memo & useMemo
 
 ### memo 
 컴포넌트가 재렌더링되면 안 에 자식컴포넌트는 항상 함께 재렌더링이 된다 근데 자식 렌더링이 시간이 오래걸리는 큰 작업이라면 자식을 memo로 감싸놓으면 됨   
@@ -1355,3 +1355,105 @@ function Cart(){
 ```
 특정함수 실행이 오래 걸릴 때 그 함수를 useMemo 안에 넣어두면 컴포넌트 로드시 1회만 실행
 useEffect 처럼 dependency도 넣을 수 있어서 특정 state, props가 변할 때만  효율적으로 실행 가능하다.  
+
+#### 결론
+![alt text](./public/image3.png)
+
+---
+
+## 22.성능개선3 : batch, useTransition, useDeferredValue
+
+### batch
+React에서는 여러 개의 상태 업데이트를 하나로 묶어 불필요한 리렌더링을 줄이는 기능을 제공하는게 이게 automatic batching이다.    
+React 18부터는 자동으로 배칭 되도록 개선된 것  
+
+batching 되는게 싫고 state변경함수 실행마다 재렌더링시키고 싶으면 flushSync라는 함수를 쓰면 됨.  
+
+### useTransition
+React 18에서 추가된 기능으로, 상태 업데이트를 긴급한 것과 덜 긴급한 것으로 분리해서 UI가 버벅거리는 걸 방지하는 역할
+```jsx
+import {useState} from 'react'
+
+let a = new Array(10000).fill(0)
+
+function App(){
+  let [name, setName] = useState('')
+  
+  return (
+    <div>
+      <input onChange={ (e)=>{ setName(e.target.value) }}/>
+      {
+        a.map(()=>{
+          return <div>{name}</div>
+        })
+      }
+    </div>
+  )
+}
+```
+데이터가 만개 들어있어 재렌더링이 느린 자료이다. 여기서 useTransition을 사용해 성능을 올릴 수 있음.
+```jsx
+import {useState, useTransition} from 'react'
+
+let a = new Array(10000).fill(0)
+
+function App(){
+  let [name, setName] = useState('')
+  let [isPending, startTransition] = useTransition()
+  
+  return (
+    <div>
+      <input onChange={ (e)=>{ 
+        startTransition(()=>{
+          setName(e.target.value) 
+        })
+      }}/>
+
+      {isPending && <p>로딩 중</p>}
+      {
+        a.map(()=>{
+            <div>
+              {name}
+            </div>
+          }
+        )
+      }
+    </div>
+  )
+}
+```
+isPending : startTransition()이 수행중일 때 true로 변하는 변수로 결과 나오기전에 로딩 중을 표시함  
+startTransition :  이걸로 state변경함수 같은걸 묶으면 그걸 다른 코드들보다 나중에 처리해줌   
+
+### useDeferredValue
+ React 18에서 추가된 기능인데, 특정 상태 값을 늦게 업데이트하도록 만들어준다.     
+ startTransition() 이거랑 용도가 똑같은데 얘는 state 아니면 변수하나 넣기 가능  
+
+ ```jsx
+ import {useState, useDeferredValue} from 'react'
+
+let a = new Array(10000).fill(0)
+
+function App(){
+  let [name, setName] = useState('')
+  let deferredText = useDeferredValue(name)
+  
+  return (
+    <div>
+      <input onChange={ (e)=>{ 
+          setName(e.target.value) 
+      }}/>
+
+      {
+        a.map(()=>{
+          return <div>{deferredText}</div>
+        })
+      }
+    </div>
+  )
+}
+ ```
+ 위 결과는 무거운 작업이 있는 UI에서 부드럽게 업데이트되도록 도와준다.
+
+ ### 정리
+ ![alt text](./public/image4.png)
