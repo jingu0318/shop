@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import {Nav, InputGroup, Form, Card, Button} from "react-bootstrap";
 import { useCart } from './../store copy.jsx';
 import { useLike } from './../hooks/useLike.jsx';
+import { useName } from "./../hooks/useName.jsx";
+
 
 function Detail (props) {
 
@@ -15,6 +17,7 @@ function Detail (props) {
     const { addItem } = useCart();
 
     let [like, addLike] = useLike();
+    let username = useName();
     
 
     useEffect(()=>{
@@ -34,10 +37,10 @@ function Detail (props) {
         }
       }, [shoe])
 
-
     return( 
         <>
             <div className={"container start " + cn}> {/*스타일 여러개달수 있음*/}
+                {username}
                 <div className="row">
                     <div className="col-md-6">
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
