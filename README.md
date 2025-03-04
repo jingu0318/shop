@@ -44,7 +44,8 @@ import를 통해서 이미지 경로를 설정 한 변수를 style을 url안에 
 ### 상품 레이아웃 만들기
 레이아웃으로 가로로 3개 균등하게 나우기 위해선 bootstrap에 가서 columns 혹은 grids 검색하면 잘 나온다.  
 가져와서 사용하고 column 테그 안에 각각 상품명과 이미지테그를 삽입해서 사용하면 된다.  
-img 테그 안에 src ="" 를 이용해서 주소를 넣는데 html안에 넣는거니까 아까처럼 import해서 넣거나 외부호스팅된 이미지라면 그냥 이미지 절대주소를 넣으면 된다.  
+img 테그 안에 src ="" 를 이용해서 주소를 넣는데 html안에 넣는거니까 아까처럼 import해서 넣거나   
+외부호스팅된 이미지라면 그냥 이미지 절대주소를 넣으면 된다.   
 
 ### public 폴더
 이미지를 쓸때마다 import하면 엄청 많은 import가 생기게 된다. 그걸 해결해주는것은 public 폴더이다.  
@@ -54,7 +55,7 @@ pulic 폴더 안에 이미지들을 사용할려면 /로 시작해서 이름만 
 
 
 나중에 배포할 때 jingu0318.com 경로에 배포하면 아무런 문제가 없지만  
-jingu0318.com/어쩌구/ 경로에 배포하면 /logo192.png 이렇게 쓰면 파일을 찾을 수 없다고 나올 수도 있습니다.   
+jingu0318.com/어쩌구/ 경로에 배포하면 /logo192.png 이렇게 쓰면 파일을 찾을 수 없다고 나올 있음.     
 
 ```jsx
 <img src={process.env.PUBLIC_URL + '/publicimg.png'} /> 
@@ -100,7 +101,7 @@ map() 함수를 나는 자식 컴포넌트 안에서 동작했지만 밖에서 �
 ## 4.리액트 라우터1
 페이지를 나누기 위해서는 라우터가 필요하다.  
 SPA인 리액트는 페이지 하나를 다른 컴포넌트로 갈아치우면서 여러 페이지를 보여주는 것 처럼 행동한다.   
-페이지 갈아치우는 것을 도와주는 라이브러리가 있는데 react-router-dom 이다. 일명 라우팅을 도와주는 라이브러리다.    
+페이지 갈아치우는 것을 도와주는 라이브러리가 있는데 react-router-dom이다. 일명 라우팅을 도와주는 라이브러  
 
 ### 라우터 설치 및 세팅
 react-router-dom 6 사이트에서 설치과정을 따라가면 된다.
@@ -142,8 +143,8 @@ function App(){
 ```
 import해주고 <Routes> 안에 <Route>를 넣으면 된다.  
 <Route>는 만들 페이지라고 생각하면 된다. 메인부터 상세,어바웃 등 원하는 페이지를 많이 만들 수 있다.  
-<Route> 경로로 가서 element 요소가 보여주는 것 이여서 지금까지 작업한 것은 Navbar 밑 메인페이지에 들어갈 수 있게 해주고   
-상세페이지에는 다른 내용이 나올 수 있게 해준다.  
+<Route> 경로로 가서 element 요소가 보여주는 것 이여서 지금까지 작업한 것은 Navbar 밑 메인페이지에 들어갈 수 있게   
+해주고 상세페이지에는 다른 내용이 나올 수 있게 해준다.   
 
 ```jsx
 <Routes>
@@ -238,7 +239,8 @@ onClick={() => { navigate(-1)}}
 *을 넣어 설정하지 않은 모든 페이지에 대해 저 element를 띄워주게 된다.
 
 ### Nested Routes
-/about이란 페이지에서 회사정보를 보여주고 있을 때 /about/member 에서 인원 /about/location 에서 위치 정보 등 아래로 가지가 뻗어나가고 싶을 때 사용한다.  
+/about이란 페이지에서 회사정보를 보여주고 있을 때 /about/member 에서   
+인원 /about/location 에서 위치 정보 등 아래로 가지가 뻗어나가고 싶을 때 사용한다.  
 ```jsx
 <Route path='/about' element={<About/>}>
   <Route path='member' element={<Member/>}/>
@@ -284,7 +286,8 @@ function Member(){
 ```
 위와 같은 방식으로 <mark>:작명</mark>을 통해 url 파라미터를 사용할 수 있게 된다.   
 
-useParams() 훅을 이용해 유저가 입력한 url파라미터를 가져올 수 있는데 이를 통해 다양한 페이지를 한 컴포넌트 페이지에서 표현이 가능하다.   
+useParams() 훅을 이용해 유저가 입력한 url파라미터를 가져올 수 있는데 이를 통해   
+다양한 페이지를 한 컴포넌트 페이지에서 표현이 가능하다.   
 ```jsx
 import { useParams } from "react-router-dom";
 
@@ -296,7 +299,8 @@ import로 선언 후 useParams() 함수로 변수값 저장하고 사용하면 u
 
 ### 배열의 응용 : filter(),find()
 만약 배열값이 sort() 함수에 의해 순서가 달라진다면 detail 페이지에서 나타내는 요소들또한 순서가 바뀔 것이다.   
-배열의 순서가 바뀌어도 유저가 입력한 url파라미터 값과 고유번호를 비교해서 값들을 나타낸다면 배열 순서가 달라져도 일정하게 상세페이지를 표현할 수 있다.  
+배열의 순서가 바뀌어도 유저가 입력한 url파라미터 값과 고유번호를 비교해서 값들을 나타낸다면   
+배열 순서가 달라져도 일정하게 상세페이지를 표현할 수 있다.  
 
 데이터 바인딩 단계에서   
 '0번째 상품의 제목을 여기 보여주세요~' 에서  
@@ -308,7 +312,8 @@ filter함수는 배열에서 주어진 조건을 만족하는 모든요소를 �
 #### find()
 find함수는 배열에서 주어진 조건을 만족하는 첫번째 값을 반환한다. (배열x)   
 
-우리는 shoes의 id 값과 url파라미터의 id값이 같은 요소 하나만 찾아서 반환하면 되기 때문에 find를 사용해서 데이터바인딩을 시켜주면 된다.  
+우리는 shoes의 id 값과 url파라미터의 id값이 같은 요소 하나만 찾아서 반환하면 되기 때문에   
+find를 사용해서 데이터바인딩을 시켜주면 된다.  
 ```jsx
 let shoe = props.shoes.find((a)=>{
         return a.id == id
@@ -408,7 +413,7 @@ let Copybtn = style.button(Yellowbtn)
 컴포넌트는  
 1. 생성이 될 수도 있고 (전문용어로 mount)
 2. 재렌더링이 될 수도 있고 (전문용어로 update)
-3. 삭제가 될 수도 있습니다. (전문용어로 unmount)
+3. 삭제가 될 수도 있음 (전문용어로 unmount)
 
 Lifecycle 중 저 세가지 순간에 실행할 함수를 정의할 수 있다.
 
@@ -436,7 +441,7 @@ useEffect 밖에 적어도 똑같은데요?
 컴포넌트가 mount & update시 function 안에 있는 코드도 다시 읽고 지나가서 그렇다.   
 
 useEffect를 그럼 왜쓰나요?  
-useEffect 안에 적은 코드는 html 렌더링 이후에 동작합니다. 즉 계산이 오래걸리는 코드를 미룰 수 있게 된다.  
+useEffect 안에 적은 코드는 html 렌더링 이후에 동작. 즉 계산이 오래걸리는 코드를 미룰 수 있게 된다.  
 ```jsx
 function Detail(){
 
@@ -465,9 +470,14 @@ function Detail(){
 ```jsx
 useEffect(()=>{ 실행할코드 }, [변수, state])
 ```
-[] 는 전문용어로 dependency라고 부른다. useEffect의 실행조건을 넣을 수 있는 곳이다. [] 안에는 아무런 변수나 state를 집어 넣을 수 있다.   
-useEffect는 mount, update 될때마다 실행 되게 되어 있는데 [] 조건 안에 변수나 state를 넣으면 그 값이 바뀔 때만 실행하게 설정 가능하다.  
-<mark>주의 할 점은 []안에 변수가 들어가 있더라도 마운트시 코드가 한번 실행되는 것은 똑같다. 그래서 []를 비워두면 마운트될 때만 실행되고 업데이트 시에는 변경이 안 되게도 설정 가능하다.</mark>    
+[] 는 전문용어로 dependency라고 부른다. useEffect의 실행조건을 넣을 수 있는 곳이다.   
+[] 안에는 아무런 변수나 state를 집어 넣을 수 있다.   
+
+useEffect는 mount, update 될때마다 실행 되게 되어 있는데 []  
+조건 안에 변수나 state를 넣으면 그 값이 바뀔 때만 실행하게 설정 가능하다.  
+
+<mark>주의 할 점은 []안에 변수가 들어가 있더라도 마운트시 코드가 한번 실행되는 것은 똑같다.  
+그래서 []를 비워두면 마운트될 때만 실행되고 업데이트 시에는 변경이 안 되게도 설정 가능하다.</mark>    
 
 ### clean up function
 ```jsx
@@ -477,12 +487,15 @@ useEffect(()=>{
    }
 }, [])
 ```
-useEffect 안에 return문을 저렇게 작성하면 useEffect 동작 전 실행되는 코드가 된다. 별명: clean up function(기존 코드를 치우는 작업을 많이해서)  
-코드 치우는 방법은 타이머 같은 경우 타이머함수를 변수 안에 넣어두고 clearTimeout(변수) 함수를 사용하면 제거가 된다.   
+useEffect 안에 return문을 저렇게 작성하면 useEffect 동작 전 실행되는 코드가 된다.  
+별명: clean up function(기존 코드를 치우는 작업을 많이해서)  
+코드 치우는 방법은 타이머 같은 경우 타이머함수를 변수 안에 넣어두고  
+clearTimeout(변수) 함수를 사용하면 제거가 된다.   
 clean up function 함수는 mount 시 실행되진 않으나 unmount 시 실행된다.   
 
 #### 응용   
-useEffect 안엔 서버로 데이터 요청코드를 많이 적는데 불러오는 도중 재렌더링이 일어나면 기존 데이터 요청코드를 제거해주세요~ 라는 코딩을 하면 된다.  
+useEffect 안엔 서버로 데이터 요청코드를 많이 적는데 불러오는 도중 재렌더링이 일어나면  
+기존 데이터 요청코드를 제거해주세요~ 라는 코딩을 하면 된다.  
 
 ---
 
@@ -493,7 +506,7 @@ useEffect 안엔 서버로 데이터 요청코드를 많이 적는데 불러오�
 
 ### GET/POST 요청하는 법
 가장 쉬운 GET요청은 브라우저 주소창이다. 거기에 url 아무거나 적으면 그곳으로 GET요청을 날려준다.  
-POST 요청은 <form> 태그를 활용하여 전송하면 POST요청을 날린다.  
+POST 요청은 form 태그를 활용하여 전송하면 POST요청을 날린다.  
 근데 위 방식으로 요청을 날리면 브라우저가 새로고침이 되는 단점이 있다.   
 
 ### 자바스크립트에서 GET/POST요청
@@ -568,7 +581,8 @@ Promise함수를 사용해서 원하는 곳으로 동시에 요청 가능
 > 어? array/object 다 주고 받는데요?  
 
 <mark>"{"name" : "kim"}"</mark>  이처럼 따옴표를 처두면은 주고 받을 수 있다. (문자로 인식하기 때문에)  
-위처럼 표현한 array/object자료를 전문용어라 JSON이라고 한다. axios라이브러리가 알아서 문자자료를 array/object자료로 변환해준다.   
+위처럼 표현한 array/object자료를 전문용어라 JSON이라고 한다.  
+axios라이브러리가 알아서 문자자료를 array/object자료로 변환해준다.   
 
 fetch : js기본문법을 사용한 GET용청 
 ```jsx
@@ -576,7 +590,7 @@ fetch('/url')
 .then(결과 => 결과.json())
 .then(data => {})
 ```
-앞서 말한 이유 때문에 fetch함수를 사용한 get 요청은 .json()함수를 통해 array/object 자료로 변환하는 과정이 필요하다.  
+앞서 말한 이유 때문에 fetch함수를 사용한 get 요청은 .json()함수를 통해 array/object 자료로 변환하는 과정이 필요  
 
 ---
 
@@ -665,7 +679,8 @@ function TabContent2({props1, props2}){
 ```
 
 ### 팁2 : if문 없이 작성하는법
-return 안에 들어가는 html문을 [] 배열 안에 다 밀어넣고 옆에 [변수]를 붙여 인덱스0부터 꺼내쓰면 원하는 내용을 뽑아 사용할 수 있다.   
+return 안에 들어가는 html문을 [] 배열 안에 다 밀어넣고 옆에 [변수]를 붙여 인덱스0부터 꺼내쓰면  
+원하는 내용을 뽑아 사용할 수 있다.   
 ```jsx
 function TabContent2({tab}){
   return  [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
@@ -703,7 +718,8 @@ function TabContent2({tab}){
   )
 }
 ```
-버튼을 눌렀을 때는 tab값이 바꼈을 때 이고 이를 이용해서 className 을 변화하는 방법은 useEffect를 쓰면 된다.(tab state가 변할때만 실행되는 함수 설정)  
+버튼을 눌렀을 때는 tab값이 바꼈을 때다. 이를 이용해서 className 을 변화하는 방법은 useEffect를 쓰면 된다.   
+(tab state가 변할때만 실행되는 함수 설정)   
 ```jsx
 function TabContent2({tab}){
     let [cn, setCn] = useState('');
@@ -719,7 +735,8 @@ function TabContent2({tab}){
   }
 ```
 이러면 완성! 된 것 같지만 작동하지 않는다.   
-이유: 개발자도구 elements를 보면 버튼을 눌러도 내용 className은 start end로 항상 나와서 문제였다.(end는 떨어져있다가 붙어야 작동한다.)  
+이유: 개발자도구 elements를 보면 버튼을 눌러도 내용 className은 start end로 항상 나와서 문제였다.  
+(end는 떨어져있다가 붙어야 작동한다.)   
 
 #### 해결방법
 clean up function 함수로 useEffect 실행전에 때는거 주문 후 setTimeout으로 시간차 붙이기 주문!
@@ -732,7 +749,8 @@ useEffect(() => {
   }
 }, [tab])
 ```
-setTimeout을 사용하는 이유 : raect18 부터 automatic batching 기능이 때문에 state 변경함수를 한번에 동작시켜서 그렇다!!  
+setTimeout을 사용하는 이유 :   
+raect18 부터 automatic batching 기능이 때문에 state 변경함수를 한번에 동작시켜서 그렇다!!  
 
 #### 다양한 애니메이션
 css를 잘 알면 여러가지 애니메이션을 줄 수 있다.  
@@ -767,8 +785,8 @@ Context API는 성능이슈(재렌더링)와 컴포넌트 재활용이 어려워
 
 ## 15.state관리2 : Redux
 Redux는 state를 관리해줄 수 있는 외부라이브러  
-props없이 state를 공유할 수 있게 해주는데 Redux를 설치하면 jsx 파일 하나에 state를 보관합니다. 그리고 모든 컴포넌트가 직접 꺼내어 쓸 수 있다.  
-사이트가 커지면 쓸 수 밖에 없어서 Redux나 zustand 라이브러리 숙려도를 대부분 요구하게 된다.  
+props없이 state를 공유할 수 있게 해주는데 Redux를 설치하면 jsx 파일 하나에 state를 보관 후 컴포넌트들이 꺼내 사용      
+사이트가 커지면 쓸 수 밖에 없어서 Redux나 zustand 라이브러리 숙려도를 대부분 요구하게 된다.    
 
 ### Redux 설치 및 세팅
 ```bash
@@ -883,7 +901,7 @@ let cart = createSlice({
 })
 ```
 #### state변경 함수에 파라미터 
-입력값을 받고 싶으면 파라미터를 추가하면 된다. 사용할 땐 변수.payload 로 사용해야된다.(payload는 화물,소포,택배 느낌)
+입력값을 받고 싶으면 파라미터를 추가하면 된다. 사용할 땐 변수.payload 로 사용해야된다.(payload=소포,택배)  
 ```jsx
 let cart = createSlice({
   name : 'cart',
@@ -911,7 +929,8 @@ Redux보다 가벼우면서도 Flux 패턴 없이 단순한 API로 동작한다.
 
 ### 장점
 1. 간단한 API : 불필요한 렌더링을 줄이고 간결하고 빠르다.
-2. Hooks 기반 : zustand는 React Hooks와 함께 사용되어 React 애플리케이션 상태를 관리. 함수형 컴포넌트에서 상태를 쉽게 관리 가능
+2. Hooks 기반 : zustand는 React Hooks와 함께 사용되어 React 애플리케이션 상태를 관리.  
+함수형 컴포넌트에서 상태를 쉽게 관리 가능
 3. 최적화 : Immer 없이도 직접 상태 변경 가능하다.
 4. 편리한 디버깅: DevTools같은 확장 프로그램을 사용 가능하다.
 
@@ -973,9 +992,10 @@ export const useBear = create((set) => ({
 배열의 특정 인덱스 변경: set((state) => { const newArr = [...state.bears]; newArr[index] = newItem; return { bears: newArr }; })  
 
 #### 기억할점
-1. 인덱스 변경이 유일하게 {} 중괄호를 사용하는데 반환값을 명시적으로 처리하고 싶을 때 사용하고 그 외 () 소괄호는 즉시반환 때문이다.(js문법) 
-2. { ...item, count: item.count + 1 } 이 문법은 object Spread Operator(객체 전개 연산자) 를 활용해서 count 속성만 바꿔 주는 문법이다. 
->  객체를 복사할 때 → { ...object } 사용, 배열을 복사할 때 → [ ...array ] 사용
+1. 인덱스 변경이 유일하게 {} 중괄호를 사용하는데 반환값을 명시적으로 처리하고 싶을 때 사용하고   
+그 외 () 소괄호는 즉시반환 때문이다.(js문법) 
+2. { ...item, count: item.count + 1 } 이 문법은 object Spread Operator(객체 전개 연산자) 를 활용해서   
+count 속성만 바꿔 주는 문법이다.(객체를 복사할 때 → { ...object } 사용, 배열을 복사할 때 → [ ...array ] 사용)
 
 #### 오류 수정한 부분 Uncaught TypeError: x.map is not a function
 1. Zustand에서 상태를 직접 수정하면 안 됨! (cart[action].count++ ❌)  
@@ -983,7 +1003,7 @@ export const useBear = create((set) => ({
 ✅ push() 대신 cart: [...state.cart, newItem]으로 새로운 배열을 반환해야 함.   
 
 2. onClick={addCount(i)}는 잘못된 방식! (onClick이 아니라 즉시 실행됨)  
-✅ onClick={() => addCount(i)} → 이렇게 콜백 함수를 전달해야 함.
+✅ onClick={() => addCount(i)} → 이렇게 콜백 함수를 전달해야 함.  
 ✅ 간단히 생각할려면 onClick 뒤에 () => 함수() 를 고정적으로 해줘야 한다.
 
 ![alt text](./public/image.png)
@@ -1511,7 +1531,7 @@ await이 비동기 작업을 기다려준 후 실행되기 때문에 코드 가�
 
 ---
 
-## custom hook : 코드 재사용하기
+## 24.custom hook : 코드 재사용하기
 자바스크립트에서 반복적인 코드는 function으로 빼서 재사용을 할 수 있다.  
 function 안에 use가 들어간 hook을 함수로 만들어 내 입맛대로 재사용 할 수 있게 만든 것을 custom hook이라고 부른다.  
 
