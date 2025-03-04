@@ -1509,3 +1509,77 @@ console.log("다른 작업 실행!");
 ```
 await이 비동기 작업을 기다려준 후 실행되기 때문에 코드 가독성이 훨씬 좋아진다. ✅  
 
+---
+
+## custom hook : 코드 재사용하기
+자바스크립트에서 반복적인 코드는 function으로 빼서 재사용을 할 수 있다.  
+function 안에 use가 들어간 hook을 함수로 만들어 내 입맛대로 재사용 할 수 있게 만든 것을 custom hook이라고 부른다.  
+
+좋아요 기능을 만들어 보자.  
+
+```jsx
+let [like, setLike] = useState(0)
+
+return (
+  (생략)
+  {like} <span onClick={()=>{ setLike(like + 1) }}>❤</span>
+)
+```
+좋아요 수를 담아줄 state 하나 만들어 주고 span 태그를 걸어 하트를 누를 때 like가 증가하게 구현해 줬다.  
+
+state변경함수를 사용할때 안에 콜백함수 ()=>{} 를 넣어주고 파라미터를 사용할 수 있는데 그 값은 기존 state값을 의미함  
+그래서 아래와 같이 짜도 동일하게 동작한다.   
+
+```jsx
+let [like, setLike] = useState(0)
+
+return (
+  (생략)
+  {like} <span onClick={()=>{ setLike((a)=>{ return a + 1 }) }}>❤</span>
+  {like} <span onClick={()=>{ setLike( a => a + 1 ) }}>❤</span> //() return {} 없앨 수 있음
+)
+```
+
+### custom hook 만드는 법
+코드가 길고 복잡하다면 function을 만들어서 넣어 둘 수 있다.  
+```jsx
+let [like, setLike] = useState(0)
+function addLike(){
+  setLike(a => a + 1)
+}
+```
+위코드를 다른 컴포넌트에서 필요해지면 어떻게 해야 할까? 또 함수에 담으면 된다.   
+전역 함수로 설정하고 싶기 때문에 한 파일에 만들어 두는게 아니라 hooks이라는 폴더를 만들고 그 안에서 만들어두고 모든 파일에서 사용하면 된다.  
+
+hooks 안에 useLike.jsx 파일에 함수를 만든다. 여기서 중요한 점은 함수로 뺄 때 정의되지 않은 변수, 함수는 정의를 해 줘야한다.  
+또한 like라는 변수를 다른 파일에서 사용하기 위해선 return 키워드를 통해 내보내야 한다.
+```jsx
+export function useLike() {
+    let [like, setLike] = useState(0);
+    function addLike(){
+        setLike(a => a + 1)
+      }
+    
+    return [like, addLike];
+}
+```
+### custom hook 사용법
+import 후 return 될 변수나 함수를 destructuring 문법으로 담고 자유자재로 사용   
+#### 중요한점 
+함수 안에 hook(useState,useEffect 등)이 들어가 있다면 함수명도 use로 시작해야된다. 그러지 않으면 오류도 발생하는데   
+훅은 컴포넌트 안에 return 보다 위에서만 사용 가능하다. 때문에 custom hook도 use로 시작하는 이름을 보고 사용 위치를 정확히 할 수 있음  
+```jsx
+import { useLike } from './../hooks/useLike.jsx';
+
+fuction Detail(props){
+
+  let [like, addLike] = useLike() // destructuring 문법
+  //hook이 사용될 수 있는 부분
+
+  return (
+    { like }<span onClick={()=>{ addLike() }}>❤</span> //custom hook으로 코드 재사용 및 간편화
+  )
+}
+```
+
+

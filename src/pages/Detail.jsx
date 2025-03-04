@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {Nav, InputGroup, Form, Card, Button} from "react-bootstrap";
 import { useCart } from './../store copy.jsx';
+import { useLike } from './../hooks/useLike.jsx';
 
 function Detail (props) {
 
@@ -12,6 +13,8 @@ function Detail (props) {
     let [tab,setTab] = useState(0);
     let [cn, setCn] = useState('');
     const { addItem } = useCart();
+
+    let [like, addLike] = useLike();
     
 
     useEffect(()=>{
@@ -23,7 +26,6 @@ function Detail (props) {
 
       }, []);
 
-
       useEffect(()=>{
         let a = setTimeout(()=>{ setCn('end') } , 100)
         return() => {
@@ -31,6 +33,7 @@ function Detail (props) {
             setCn('')
         }
       }, [shoe])
+
 
     return( 
         <>
@@ -44,7 +47,8 @@ function Detail (props) {
                     <InputGroup size="lg"style={{marginTop : '20px'}}>
                         <InputGroup.Text id="inputGroup-sizing-lg">수량</InputGroup.Text>
                         <Form.Control aria-label="Large" aria-describedby="inputGroup-sizing-sm"  onChange={(e)=>숫자값변경(e.target.value)}/>
-                    </InputGroup>
+                    </InputGroup>   
+                    {like} <span onClick={()=>{ addLike() }}>❤</span>
                     <h4 className="pt-5">{shoe.title}</h4>
                     <p>{shoe.content}</p>
                     <p>{shoe.price}원</p>
