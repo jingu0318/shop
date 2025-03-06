@@ -1604,6 +1604,6 @@ fuction Detail(props){
 
 ---
 
-## 25.Progressive Web App 
+## 25.Progressive Web App : PWA
 
 
