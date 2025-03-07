@@ -1,16 +1,17 @@
-import {Table} from 'react-bootstrap';
+import {Table ,Button} from 'react-bootstrap';
 import { useUser, useCart } from './../store copy.jsx';
 
 
 function Cart() {
 
-    const {user, changeName} = useUser();
-    const {cart, addCount, removeItem} = useCart();
+    // const {user, changeName} = useUser();
+    const {cart, addCount, bddCount, removeItem, removeAll} = useCart();
 
     return(
         <div>
-            <h6>{user}의 장바구니</h6>
-            <button onClick={() => changeName()}>+</button>
+            {/* <h6>{user}의 장바구니</h6>
+            <button onClick={() => changeName()}>+</button> */}
+            <Button onClick ={() => removeAll()}>전체삭제하기버튼</Button>
             <Table>
                 <thead>
                     <tr>
@@ -30,10 +31,11 @@ function Cart() {
                                 <td>{a.name}</td>
                                 <td>{a.count}</td>
                                 <td>
-                                    <button onClick={() => addCount(a.id)}>+</button>
+                                    <Button onClick={() => addCount(a.id)}>+</Button>
+                                    <Button onClick={() => bddCount(a.id)}>-</Button>
                                 </td>
                                 <td>
-                                    <button onClick={() => removeItem(a.id)}>X</button>
+                                    <Button onClick={() => removeItem(a.id)}>X</Button>
                                 </td>
                                 </tr>
                             )

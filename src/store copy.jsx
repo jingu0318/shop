@@ -19,6 +19,12 @@ export const useCart = create((set) => ({
     )
   })),
 
+  bddCount: (index) => set((state) => ({
+    cart: state.cart.map((a) => 
+      a.id === index ? { ...a, count: a.count - 1 } : a //변경된 부분만 업뎃 후 Object를 반환(객체 spread operator)
+    )
+  })),
+
   addItem: (newItem) => set((state) => ({
     cart: state.cart.some((item) => item.id === newItem.id) //some()함수를 통해 현재 cart 안에 newItem이랑 같은게 있는지 확인
       ? state.cart.map((item) =>
@@ -30,4 +36,6 @@ export const useCart = create((set) => ({
   removeItem:(index) => set((state) => ({
     cart: state.cart.filter((a) => a.id !== index)
   })),
+
+  removeAll:() => set({ cart: [] }),
 }));
