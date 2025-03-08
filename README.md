@@ -1605,12 +1605,20 @@ fuction Detail(props){
 ---
 
 ## 25.Progressive Web App : PWA
-PWA(Progressive Web App)라는게 있다.
-웹사이트를 모바일 앱인 것 처럼 설치해서 사용할 수 있는 사이트
+PWA(Progressive Web App)라는게 있다.  
+웹사이트를 모바일 앱인 것 처럼 설치해서 사용할 수 있는 사이트  
 
 ### PWA 해놓으면 장점
-1. 일단 인터넷 없이도 동작할 수 있음
-2. 모바일 앱처럼 푸시알림도 전송이 가능
-3. PWA가 있으면 iOS와 Android 앱으로 간단하게 변환할 수도 있음 (PWAbuilder)
-> Webview안에 사이트를 넣어서 앱으로 포장해줌
+1. 일단 인터넷 없이도 동작할 수 있음  
+2. 모바일 앱처럼 푸시알림도 전송이 가능  
+3. PWA가 있으면 iOS와 Android 앱으로 간단하게 변환할 수도 있음 (PWAbuilder)  
+> Webview안에 사이트를 넣어서 앱으로 포장해줌  
 
+### PWA 구현하는 법
+manifest.json과 service-worker.js 파일 2개만 있으면 브라우저가 PWA로 인식하는데  
+그건 직접 만들기 귀찮기 때문에 라이브러리 도움을 받을 수 있다.  
+
+Vite을 쓰면 그거 쓰는 분들을 위한 PWA 셋팅도와주는 라이브러리가 있음
+```bash
+npm install vite-plugin-pwa 
+```
