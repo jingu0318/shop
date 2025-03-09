@@ -47,19 +47,7 @@ function App() {
               </Row>
             </Container>
             </div>
-            <Button onClick={()=>{
-              setCount(count+1)
-              console.log(count)
-              axios.get('https://codingapple1.github.io/shop/data'+(count+2)+'.json')
-              .then((result)=>{ 
-                let copy = [...shoes]
-                copy.push(...result.data)
-                setShoes(copy)
-               })
-              .catch(()=>{
-                console.log('불러오기 실패')
-              })
-            }}>버튼</Button>
+            <Button onClick={()=>{ window.scrollTo({ top: 0, behavior: 'smooth' }) }}>맨 위로 가기</Button>
           </>
         } />
 
