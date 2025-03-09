@@ -34,3 +34,8 @@ th,td {
     font-size: large;
 }
 
+td img {
+    max-width: 55px; /* 최대 너비 제한 */
+    height: auto; /* 비율 유지 */
+  }
+

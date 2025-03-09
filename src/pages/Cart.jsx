@@ -17,6 +17,7 @@ function Cart() {
                 <thead>
                     <tr>
                     <th>상품번호</th>
+                    <th>상품사진</th>
                     <th>상품명</th>
                     <th>수량</th>
                     <th>가격</th>
@@ -28,9 +29,11 @@ function Cart() {
                     {   
                         cart.map((a,i)=>{
                             total += parseInt(a.count) * parseInt(a.price)
+                            let url = "https://codingapple1.github.io/shop/shoes"+(a.id+1)+".jpg"
                             return(
                                 <tr key={i}>
                                 <td>{a.id}</td>
+                                <td><img src={url}/></td>
                                 <td>{a.name}</td>
                                 <td>{a.count}</td>
                                 <td>{a.price}</td>
