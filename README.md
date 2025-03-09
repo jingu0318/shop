@@ -1606,19 +1606,166 @@ fuction Detail(props){
 
 ## 25.Progressive Web App : PWA
 PWA(Progressive Web App)라는게 있다.  
-웹사이트를 모바일 앱인 것 처럼 설치해서 사용할 수 있는 사이트  
+웹사이트를 모바일 앱인 것 처럼 설치해서 사용할 수 있는 사이트를 말한다.    
 
 ### PWA 해놓으면 장점
-1. 일단 인터넷 없이도 동작할 수 있음  
-2. 모바일 앱처럼 푸시알림도 전송이 가능  
-3. PWA가 있으면 iOS와 Android 앱으로 간단하게 변환할 수도 있음 (PWAbuilder)  
+1. 일단 인터넷 없이도 동작할 수 있음    
+>service worker 라는 파일과 브라우저의 cache storage 덕분에 그렇다.    
+
+#### service worker파일은
+![alt text](/public/image5.png)
+유저가 우리 사이트에 접속하면 html, css, js, 이미지 파일을 서버에서 받아와야하는데  
+이걸 중간에 가로채는 역할을 하는 파일  
+중간에 가로챈 다음에 이미 이 파일들이 하드디스크(브라우저 cache storage)에 있으면  
+서버대신에 그 파일들을 보내주는게 service worker 파일의 주된 역할  
+
+그래서 그 파일이 있으면 사이트가 오프라인에서도 잘 동작하고  
+캐싱같은 개념이라 더 빠르게 사이트를 로드할 수 있음.  
+모바일 앱도 계산기, 메모앱, 게임 이런건 오프라인에서도 동작해야는 경우가 많은데  
+그런 용도의 사이트 만들 때도 유용하게 쓰일 수 있음  
+
+2. 모바일 앱처럼 푸시알림도 전송이 가능    
+
+3. PWA가 있으면 iOS와 Android 앱으로 간단하게 변환할 수도 있음 (PWAbuilder)   
 > Webview안에 사이트를 넣어서 앱으로 포장해줌  
 
-### PWA 구현하는 법
+### PWA 설치
 manifest.json과 service-worker.js 파일 2개만 있으면 브라우저가 PWA로 인식하는데  
 그건 직접 만들기 귀찮기 때문에 라이브러리 도움을 받을 수 있다.  
 
-Vite을 쓰면 그거 쓰는 분들을 위한 PWA 셋팅도와주는 라이브러리가 있음
+Vite을 쓰면 그거 쓰는 분들을 위한 PWA 셋팅도와주는 라이브러리가 있는데   
+새로운 Vite 프로젝트 하나 만들고 명령어 입력  
 ```bash
 npm install vite-plugin-pwa 
 ```
+
+또는 귀찮으면 PWA가 세팅이 완료된 채로 프로젝트 생성을 할 수 도 있음
+```bash
+npm create @vite-pwa/pwa@latest
+```
+### PWA 세팅
+라이브러리를 설치했으면 세팅해야될게 있다.  
+vite.config.js 파일에 밑에 코드를 복붙  
+```js
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { VitePWA } from "vite-plugin-pwa"
+
+export default defineConfig({
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true
+      },
+
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      },
+
+      includeAssets: ['apple-touch-icon.png'],
+      manifest: {
+        name: '테스트용 리액트앱',
+        short_name: 'MyApp',
+        description: '설명',
+        theme_color: '#000000',
+        icons: [
+          {
+            src: 'logo.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'logo.png',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ]
+      },
+    })
+  ],
+})
+```
+그럼 라이브러리가 알아서 파일 2개 생성이 되면서 PWA 완성  
+
+### 옵션설명
+```jsx
+registerType: 'autoUpdate', 
+```
+자동업데이트 여부
+이렇게 해두면 서버에 새로운 html, css, js 파일들이 있으면 service worker가 알아서 새로 받아온다.  
+
+```jsx
+devOptions: {
+  enabled: true
+}
+```
+개발중에도 service worker같은 파일 미리보고 싶다면
+
+```jsx
+workbox: {
+  globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+}, 
+```
+service worker에서 캐싱같은걸 해주는데 캐싱할 파일들을 여기서 선택가능  
+특이한 점은 이렇게 해두면 빌드할때 다이나믹하게 생성되는 html, css, js, 이미지 파일들도 알아서 캐싱해줌  
+array안에 원하는 파일 이름도 직접 집어넣을 수 있음   
+
+```jsx
+includeAssets: ['어쩌구.png'], 
+```
+근데 캐싱할 파일이 public 폴더에도 있으면 그것들은 여기다가 적게 되어있음  
+예를 들어 *.png 이런 식으로 쓰면 public 폴더 안의 모든 png 파일 선택할 수 있음  
+근데 여기말고 globPatterns에 적어놔도 public 폴더에 있던거 캐싱 잘 되는 것 같음  
+
+```jsx
+manifest: { 길어서 생략 },
+```
+manifest 부분 채우면 이걸 바탕으로 자동으로 manifest.json 파일을 생성해 줌  
+manifest.json 파일은 앱의 정보 기입용 파일이다. 앱 이름, 테마색상, 아이콘 알아서 집어 넣기  
+아이콘은 기입된 것처럼 최소 2개 사이즈가 필요하며 public 폴더에 보관해둔걸 집어넣기  
+
+display: 'standalone'
+이런 것도 manifest 설정에 넣을 수 있는데 이게 있으면 앱띄울 때 주소창을 제거해준다.  
+그럼 진짜로 모바일 앱처럼 보여서 앱이라고 사기칠 수 있는데 실은 이게 디폴트라 안적어도 됨.  
+
+### PWA 확인
+npm run dev 입력해서 미리보기 띄워보면 PWA 셋팅되었는지 확인할 수 있는데  
+더 정확하게 하려면 npm run build 입력해서 나온 index.html 파일을 미리보기 띄워보는게 좋다.  
+
+1. npm run build 터미널에 입력하면 dist 폴더 생성    
+2. dist 폴더를 에디터로 폴더오픈   
+3. 터미널 열고 npx serve . 입력하여 미리보기 띄우기  
+
+혹은 안되면 에디터 extension에서 live server 검색해서 설치 후   
+index.html 우클릭해서 live server로 미리보기  
+
+![alt text](/public/image6.png)
+▲ 그 후에 사이트에 들어가서 개발자도구  
+Application탭 - Manifest 항목에서 설정 잘 되었나 확인  
+Application탭 - Service worker 항목도 확인해서 이상한 .js 파일 등록 잘되어있나 확인  
+
+그럼 PWA로 잘 인식되었다는 뜻이며 설치버튼도 생긴다.  
+Offline 체크박스 체크해보면 오프라인에서 사이트가 어떻게 보이는지 실험해볼 수 있다.  
+
+근데 캐싱이 강력해서 계속 같은 내용만 떠서 개발할 땐 귀찮을 수 있기 때문에  
+확인했으면 Application 탭 - Cache storage 들어가서 캐싱된 파일들은 지우면 됨  
+
+### 설치유도 팝업
+설치 유도하는 팝업도 띄울 수 있다.  
+자동으로는 못띄우고 유저가 버튼을 누른다든지 뭔가 상호작용을 할 때만 띄울 수가 있다.  
+
+```jsx
+window.addEventListener("beforeinstallprompt", (e) => {
+  e      
+}); 
+```
+위 코드를 useEffect같은 아무곳에 작성해서 1회 실행시키면 e라는 파라미터를 쓸 수 있는데  
+이걸 state같은 곳에 저장해둔 다음 원할 때 state변수.prompt() 코드만 실행해주면 팝업이 뜬다.  
+예를 들어 버튼 클릭시 state변수.prompt() 코드를 실행하면 됨.  
+
+하지만 요즘은 정책이 바뀌었는지 모바일 브라우저에선 잘 안뜨는 것 같음   
+
+
+ 
