@@ -3,8 +3,9 @@ import './App.css'
 import data from './datas/data'
 import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
 import { Routes, Route, useNavigate, Outlet} from 'react-router-dom'
-import axios from 'axios'
 import Login from './pages/Login'
+import Signup from './pages/Signup'
+import { useStore } from './storecopy.jsx'
 
 const Detail = lazy( () => import('./pages/Detail') )
 const Cart = lazy( () => import('./pages/Cart') )
@@ -17,9 +18,10 @@ function App() {
     }
   }, []);
 
+  const { isLoggedIn, user, setIsLoggedIn, setUser } = useStore();
+
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
-  let [count, setCount] = useState(0);
 
   return (
     <div className="App">
@@ -27,10 +29,10 @@ function App() {
         <Container>
           <Navbar.Brand onClick={() => { navigate('/')}}>HaloSHOP</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link onClick={() => { navigate('/login')}}>로그인</Nav.Link>
-            <Nav.Link  onClick={() => { navigate('/detail/0')}}>상세페이지</Nav.Link>
+            {isLoggedIn ? <Nav.Link>안녕하세요 {user}님</Nav.Link> : <Nav.Link onClick={() => { navigate('/login')}}>로그인</Nav.Link>}
             <Nav.Link onClick={() => { navigate('/cart')}}>장바구니</Nav.Link>
             <Nav.Link onClick={() => { navigate('/event')}}>이벤트</Nav.Link>
+            {isLoggedIn ? <Nav.Link onClick={() => { setIsLoggedIn(false) }} >로그아웃</Nav.Link> : null}
           </Nav>
         </Container>
       </Navbar>
@@ -52,6 +54,7 @@ function App() {
         } />
 
         <Route path="/login" element={<Login/>} />
+        <Route path='/Signup' element={<Signup/>} />
         <Route path="/detail/:id" element={ <Detail shoes={shoes}/> } />
         <Route path="/cart" element={<Cart/>} />
 

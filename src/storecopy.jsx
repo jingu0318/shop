@@ -6,6 +6,13 @@ export const useUser = create((set) => ({
   changeName: () => set((state) => ({ user: 'john' + state.user})),
 }));
 
+export const useStore = create((set) => ({
+  isLoggedIn: false,
+  user: null,
+  setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
+  setUser: (user) => set({ user }),
+}));
+
 export const useCart = create((set) => ({
   cart: [
     { id: 0, name: 'White and Black', count: 2, price : 120000 },

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {Nav, InputGroup, Form, Card, Button} from "react-bootstrap";
-import { useCart } from './../store copy.jsx';
+import { useCart } from '../storecopy.jsx';
 import { useLike } from './../hooks/useLike.jsx';
 
 

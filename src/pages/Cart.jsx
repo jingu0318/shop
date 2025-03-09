@@ -1,5 +1,5 @@
 import {Table ,Button} from 'react-bootstrap';
-import { useUser, useCart } from './../store copy.jsx';
+import { useUser, useCart } from '../storecopy.jsx';
 
 
 function Cart() {
