@@ -8,8 +8,8 @@ export const useUser = create((set) => ({
 
 export const useCart = create((set) => ({
   cart: [
-    { id: 0, name: 'White and Black', count: 2 },
-    { id: 2, name: 'Grey Yordan', count: 1 }
+    { id: 0, name: 'White and Black', count: 2, price : 120000 },
+    { id: 2, name: 'Grey Yordan', count: 1, price : 130000 }
   ],
 
   // 🔥 기존 배열을 새로운 배열로 업데이트해야 React가 상태 변경을 감지함!

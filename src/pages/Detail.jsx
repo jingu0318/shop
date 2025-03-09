@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {Nav, InputGroup, Form, Card, Button} from "react-bootstrap";
 import { useCart } from './../store copy.jsx';
 import { useLike } from './../hooks/useLike.jsx';
@@ -8,6 +8,7 @@ import { useLike } from './../hooks/useLike.jsx';
 function Detail (props) {
 
     let{id} = useParams();
+    let navigate = useNavigate();
     let [숫자값, 숫자값변경] = useState(0);
     let url = "https://codingapple1.github.io/shop/shoes"+(parseInt(id)+1)+".jpg"
     let shoe = props.shoes.find((a) => a.id == id)
@@ -26,15 +27,25 @@ function Detail (props) {
             localStorage.setItem('watched', JSON.stringify(꺼낸거));
         }
 
-      }, []);
+    }, []);
 
-      useEffect(()=>{
+    useEffect(()=>{
         let a = setTimeout(()=>{ setCn('end') } , 100)
         return() => {
             clearTimeout(a)
             setCn('')
         }
-      }, [shoe])
+    }, [shoe])
+
+   function movePage(){
+        const result = window.confirm(숫자값 + "개를 장바구니에 추가하시겠습니까?");
+        if (result) {
+            addItem( {id : shoe.id, name : shoe.title, count : 숫자값, price : shoe.price} )
+            navigate('/cart')
+        } else {
+            null
+        }
+   }
 
     return( 
         <>
@@ -54,8 +65,8 @@ function Detail (props) {
                     <p>{shoe.content}</p>
                     <p>{shoe.price}원</p>
                     <button className="btn btn-danger" style={{marginBottom : '20px'}} onClick={()=>{
-                        addItem( {id : shoe.id, name : shoe.title, count : 숫자값} )
-                    }} >주문하기</button> 
+                        movePage()
+                    }} >장바구니 추가</button> 
                     </div>
                 </div>
             </div>
