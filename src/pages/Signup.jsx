@@ -20,16 +20,19 @@ function Signup() {
             username,
             terms
         };
-        localStorage.setItem('userData', JSON.stringify(formData)); //로컬스토리지에 저장
-
-        alert('회원가입이 완료되었습니다!');
-        navigate('/login')
-    };
+        if (terms) {
+            localStorage.setItem('userData', JSON.stringify(formData))
+            alert('회원가입이 완료되었습니다!')
+            navigate('/login')
+        } else {
+            alert('약관 동의하여야 가입이 가능합니다.')
+        }   
+    }
 
     return(
         <div>
-            <h3 className="title">회원가입</h3>
-            <Card>
+            <Card className="bg-light border-primary text-black" style={{margin : '30px'}}>
+            <Card.Header>회원가입</Card.Header>
             <Card.Body>
                 <Form onSubmit={handleSubmit}> {/* submit 버튼 누를시 함수 실행 */}
                     {/* 이메일 입력 필드 */}

@@ -32,8 +32,8 @@ function Login() {
 
     return(
         <div>
-            <h3 className="title">로그인</h3>
-            <Card>
+        <Card className="bg-light border-primary text-black" style={{ margin : '30px'}}>
+            <Card.Header>로그인</Card.Header>
             <Card.Body>
                 <Form onSubmit={handleLogin}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -65,7 +65,7 @@ function Login() {
             </Card.Body>
         </Card>
         
-        <p onClick={() => { navigate('/Signup')}}>회원가입하기</p>
+        <p onClick={() => { navigate('/Signup')}} style={{marginLeft: '35px'}}>회원가입하기</p>
         </div>
     )
 }

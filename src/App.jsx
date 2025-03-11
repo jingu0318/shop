@@ -1,7 +1,7 @@
 import { lazy, useEffect, useState } from 'react'
 import './App.css'
 import data from './datas/data'
-import {Button, Container, Nav, Navbar, Row, Col} from 'react-bootstrap'
+import {Button, Container, Nav, Navbar, Row, Col, Card} from 'react-bootstrap'
 import { Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -59,8 +59,8 @@ function App() {
         <Route path="/cart" element={<Cart/>} />
 
         <Route path='/event' element={<Event/>}>
-          <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>}/>
-          <Route path='two' element={<div>생일기념 쿠폰받기</div>}/>
+          <Route path='one' element={<div>10% 할인 쿠폰이 지급되었습니다.</div>}/>
+          <Route path='two' element={<div>생일기념 쿠폰이 지급되었습니다.</div>}/>
         </Route>
       
         <Route path="*" element={ <div>없는 페이지입니다.</div> } />
@@ -96,8 +96,24 @@ function Event(){
   return(
     <div className='event'>
       <h4>오늘의 이벤트</h4>
-      <Button onClick={() => { navigate('/event/one')}} >이벤트1</Button>
-      <Button onClick={() => { navigate('/event/two')}}>이벤트2</Button>
+      <br/>
+      <Card border="primary" style={{ width: '18rem' }} onClick={() => { navigate('/event/one')}} >
+        <Card.Header>이벤트1</Card.Header>
+        <Card.Body>
+          <Card.Text>
+          첫 주문시 10% 할인 쿠폰
+          </Card.Text>
+        </Card.Body>
+      </Card>
+      <br/>
+      <Card border="primary" style={{ width: '18rem' }} onClick={() => { navigate('/event/two')}} >
+        <Card.Header>이벤트2</Card.Header>
+        <Card.Body>
+          <Card.Text>
+          이번 달 생일자 쿠폰받기
+          </Card.Text>
+        </Card.Body>
+      </Card>
       <Outlet></Outlet>
     </div>
   )
