@@ -1765,7 +1765,7 @@ window.addEventListener("beforeinstallprompt", (e) => {
 이걸 state같은 곳에 저장해둔 다음 원할 때 state변수.prompt() 코드만 실행해주면 팝업이 뜬다.  
 예를 들어 버튼 클릭시 state변수.prompt() 코드를 실행하면 됨.  
 
-하지만 요즘은 정책이 바뀌었는지 모바일 브라우저에선 잘 안뜨는 것 같음       
+하지만 요즘은 정책이 바뀌었는지 모바일 브라우저에선 잘 안뜨는 것 같음         
 
 
  
